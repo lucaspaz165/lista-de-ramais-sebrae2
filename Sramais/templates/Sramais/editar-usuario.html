@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}Editar Usuário{% endblock %}
+{% block content %}
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+
+<div class ="col-md-6 offset-md-3">
+    <div class="card auth-card">
+        <div class="card-body">
+            <h2 align="center"><b>Editar Usuário</b></h2>
+            <br>
+            <form method ="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form|crispy}}
+                <br>
+                <button type="submit" class="btn btn-primary btn-block">Editar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+{% endblock %}
+
