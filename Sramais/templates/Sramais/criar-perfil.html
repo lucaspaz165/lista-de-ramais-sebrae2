@@ -1,30 +1,29 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% load staticfiles %}
-{% block title %}Editar Perfil{% endblock %}
+{% block title %}Adicionar Ramal{% endblock %}
 {% block content %}
 <div>
     <br>
     <br>
-    <br>
+<br>
 </div>
 
 <section>
         <div class="col-md-6 offset-md-3">
                 <div class="card auth-card">
                         <div class="card-body">
-                            <h2 align="center"><b>Editar Perfil</b></h2>
+                            <h2 align="center"><b>Criar Perfil</b></h2>
                                 <form method="POST"  enctype="multipart/form-data">
                                         {% csrf_token %}
                                         {{form|crispy}}
-                                        <br>
-
-                                    {% if request.user.is_superuser %}
+                                        {% if request.user.is_superuser %}
                                         <div id="div_id_admin" class="form-group">
                                             <label for="id_admin" class="col-form-label ">Admin</label>
                                             <div class="">
                                                 <select name="admin" class="nullbooleanselect form-control" id="id_admin">
-                                                    {% if ramais_form.user.is_superuser %}
+                                                    {% if ramais.user.is_superuser %}
                                                         <option value="true">Sim</option>
                                                          <option value="false">Não</option>
                                                     {% else %}
@@ -34,9 +33,9 @@
                                                 </select>
                                            </div> </div>
                                     {% endif %}
-                                    <br>
-                                    <button type="submit" class="btn btn-primary btn-block">Editar</button>
-
+                                        <br>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
                                 </form>
                         </div>
                 </div>

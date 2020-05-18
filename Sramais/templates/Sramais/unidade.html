@@ -4,13 +4,15 @@
 
 {% block content %}
 
-
+<div>
+    <br>
+</div>
 {% if user.is_superuser %}
     {% for unidade in unidades %}
         {% if user.ramais.unidade.sigla == unidade.sigla  %}
             {% if unidade.sigla == nome %}
                 <br>
-                <h5>&nbsp&nbsp<a href="/editar-unidade/{{unidade.id}}"><i class="fas fa-clipboard-list"></i></a>&nbsp&nbsp<a href="/deletar-unidade/{{unidade.id}}" onclick="return confirm('Voce deseja deletar essa UNIDADE ?')"><i class="fas fa-trash"></i></a></h5>
+                <h4 align="center">&nbsp&nbsp<a href="/editar-unidade/{{unidade.id}}"><i class="fas fa-clipboard-list"></i></a>&nbsp&nbsp<a href="/deletar-unidade/{{unidade.id}}" onclick="return confirm('Voce deseja deletar essa UNIDADE ?')"><i class="fas fa-trash"></i></a></h4>
 
             {% endif %}
     {% endif %}
@@ -24,9 +26,10 @@
         <h1><b>{{unidades.unidade__nome_completo}} - {{unidades.unidade__sigla}}</b></h1>
         <br>
         <br>
-
-        <p align="center">{{unidades.unidade__descrição}}</p>
-    </div>
+        <div class="container">
+            <p class="unidade">{{unidades.unidade__descrição}}</p>
+        </div>
+        </div>
 <br>
 
 

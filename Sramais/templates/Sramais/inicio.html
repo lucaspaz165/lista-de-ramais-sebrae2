@@ -16,7 +16,6 @@
              </div>
 
 {% endif %}
-
     <section> <!-- Seção aniversário -->
         {% for ramal in ramais %}
             {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
@@ -44,6 +43,44 @@
                     <tbody>
                         {% for ramal in ramais %}
                             {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month%}
+                                <tr>
+                                    <td ><img src="/media/{{ramal.foto}}" alt="foto-de-perfil-aniversario" class ="img-div"></td>
+                                    <td >{{ramal.nome}}</td>
+                                    <td>{{ramal.unidade}}</td>
+                                    <td>{{ramal.ramal}}</td>
+                                    <td>{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</td>
+                                    <td>{{ramal.Função}}</td>
+                                </tr>
+                     {%  endif %}
+                        {%  endfor %}
+                </tbody>
+                 </table>
+                </div>
+          {% for ramal in ramais %}
+            {%  if ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
+                <br>
+                <br>
+                <div style="overflow-x:auto;">
+                    <br>
+                    <p align="center"><b>Confira quem são os aniversariantes da semana :</b></p>
+                    <table align="center" class="tabela-2">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nome</th>
+                                <th>Unidade</th>
+                                <th>Ramal</th>
+                                <th>Aniversario</th>
+                                <th>Função</th>
+                            </tr>
+                    </thead>
+                        {{ "<!--" }}
+                        {%endif%}
+                        {%endfor%}
+                       <span style="display: none;"{{ "-->" }}</span>
+                    <tbody>
+                        {% for ramal in ramais %}
+                            {% if ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
                                 <tr>
                                     <td ><img src="/media/{{ramal.foto}}" alt="foto-de-perfil-aniversario" class ="img-div"></td>
                                     <td >{{ramal.nome}}</td>

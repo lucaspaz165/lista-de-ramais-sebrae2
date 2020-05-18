@@ -75,6 +75,7 @@
                             <a class="nav-link" href="/unidade/{{user.ramais.unidade.sigla}}" style="color:white">{{user.ramais.unidade}}</a>
                         </li>
                       {% endif %}
+
                              <li class="nav-item dropdown">
                                     <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown" style="color:white">&nbsp<i class="fas fa-user"></i><b>&nbsp&nbsp{{user}}</b></a>
 
@@ -85,6 +86,9 @@
                                                             <li><a href="/editar-perfil/{{ramal.id}}"> Editar Perfil</a></li>
                                                         {% endif%}
                                                         {% endfor %}
+                                                    {% if request.user.ramais.ramal in request.user.ramais.ramal %}
+                                                        <li><a href="/criar-perfil/"> Criar Perfil</a></li>
+                                                     {% endif %}
                                                     <li><a href="/accounts/logout/">Sair</a></li>
                                                     {% if user.is_superuser%}
                                                         <li><a href="/adicionar/">Adicionar um ramal</a><li>
@@ -118,12 +122,8 @@
 
     <section class="copyright">
         <article>
-          <dl>
-              <dt><h2>Direitos</h2></dt>
-                <dd>Copyright - Todos os direitos reservados | Desenvolvido por Lucas Paz</dd>
-
-  <!-- other terms and definitions -->
-          </dl>
+            <br>
+            <p>Copyright - Todos os direitos reservados | Sebrae AL</p>
 
             </article>
     </section>

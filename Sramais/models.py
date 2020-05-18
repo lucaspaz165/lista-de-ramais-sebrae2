@@ -27,7 +27,7 @@ funcoes = (('Estagiário (a)', 'Estagiário (a)'), ('Funcionário (a)', 'Funcion
 
 
 class Ramais(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique= True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique= True, blank=False)
     nome = models.CharField(max_length=100, null=True, blank=False, unique=True)
     ramal = models.DecimalField(max_digits=4, decimal_places=0, blank=False, unique=True)
     unidade = models.ForeignKey('Unidade', on_delete=models.SET_NULL, null=True, blank=False)
@@ -38,7 +38,7 @@ class Ramais(models.Model):
     mes_de_nascimento = models.DecimalField('Mês de nascimento', decimal_places=0, max_digits=2, validators=[MinValueValidator(1)] and [MaxValueValidator(12)], null=True, blank=False)
     foto = models.ImageField(upload_to="%Y/%m/%d/", null=True, blank=True)
     funcao = models.CharField('Função' ,max_length=25, choices=funcoes, null=True, blank=False, name='Função')
-    admin = models.BooleanField (max_length = 10, null=True, blank=True, )
+    admin = models.BooleanField (max_length = 10, null=True, blank=True )
     def clean(self):
         if self.whatsapp is None:
             self.whatsapp = 'Não informado'

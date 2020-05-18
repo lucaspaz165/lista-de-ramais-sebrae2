@@ -25,13 +25,7 @@ SECRET_KEY = 'we12hhh+&@&k&h%=khfz851zq@27jjx2&oeqre#^sv0$!-r5)h'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = True
-if DEBUG:
-   STATIC_ROOT = os.path.join(BASE_DIR, '/static')
-   MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 
-else:
-   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-   MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 ALLOWED_HOSTS = ['*']
 

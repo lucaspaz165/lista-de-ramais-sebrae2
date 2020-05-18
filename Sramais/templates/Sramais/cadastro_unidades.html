@@ -18,20 +18,7 @@
             <form  method = "POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <br>
-                <label><b>Nome Completo</b></label>
-                <br>
-                <input type="text" name="nome_completo" maxlength="70" class="textinput textInput form-control" required="" id="id_nome_completo" placeholder="Digite o nome completo da unidade">
-                <br>
-                <br>
-                <label>Sigla</label>
-                <br>
-                <input type="text" name="sigla" maxlength="10" placeholder="Digite a sigla da unidade" class="textinput textInput form-control" required="" id="id_sigla">
-                <br>
-                <br>
-                <label>Descrição</label>
-                <textarea name="descrição" cols="40" rows="10" class="textarea form-control" required="" id="id_descrição"></textarea>
-                <br>
-                <br>
+                {{form|crispy}}
                 <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
 
             </form>

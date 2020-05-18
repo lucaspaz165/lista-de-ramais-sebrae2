@@ -230,8 +230,8 @@ li {
     float:right
 }
 .unidade {
-    text-align: center;
-	text-indent: 100px; <!-- primeiro parágro tem um espaço no inicio-->
+    text-align: justify;
+	text-indent: 4px; <!-- primeiro parágro tem um espaço no inicio-->
     letter-spacing: 3px;
 	line-height: 50px;
 	word-spacing: 10px;
