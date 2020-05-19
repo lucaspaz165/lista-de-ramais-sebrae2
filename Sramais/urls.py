@@ -16,5 +16,7 @@ urlpatterns = [
     path('editar-unidade/<int:id>', views.editar_unidade, name='Sramais-editar-unidade'),
     path('deletar-unidade/<int:id>', views.deletar_unidade, name="Sramais-deletar"),
     path('criar-perfil/', views.criar_perfil, name='Sramais-criar-perfil'),
+    path('adc-favoritos/', views.adicionar_favoritos, name= 'Sramais-favoritos'),
+    path('deletar-favorito/<int:id>', views.deletar_favorito, name="Sramais-deletar-favorito"),
 
 ]

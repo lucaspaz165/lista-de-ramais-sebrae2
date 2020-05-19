@@ -12,6 +12,7 @@ from django.utils.translation import gettext as _
 from Sistema import settings
 
 
+
 class Unidade(models.Model):
     nome_completo = models.CharField(name='nome_completo', max_length=70, null=True, blank=False, unique=True)
     sigla = models.CharField(max_length=10, null=False, blank=False, unique=True)
@@ -39,6 +40,7 @@ class Ramais(models.Model):
     foto = models.ImageField(upload_to="%Y/%m/%d/", null=True, blank=True)
     funcao = models.CharField('Função' ,max_length=25, choices=funcoes, null=True, blank=False, name='Função')
     admin = models.BooleanField (max_length = 10, null=True, blank=True )
+
     def clean(self):
         if self.whatsapp is None:
             self.whatsapp = 'Não informado'
@@ -46,3 +48,11 @@ class Ramais(models.Model):
     def __str__(self):
 
         return f' {self.nome}'
+
+
+class Favorito(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=True)
+    ramais =models.ForeignKey('Ramais', on_delete=models.SET_NULL, null=True, blank=False)
+
+    def __str__(self):
+        return f' {self.ramais}'

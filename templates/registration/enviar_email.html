@@ -3,30 +3,26 @@
 {% block title %}Resetar Senha{% endblock %}
 
 {% block content %}
-<div>
+<section>
     <br>
     <br>
-</div>
-
-<div class ="col-md-4 offset-md-4">
-    <div class="card auth-card">
-        <div class="card-body">
-            <h4 align="center"><b>Digite o email cadastrado </b></h4>
-            <br>
-            <form method ="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{form|crispy}}
+    <div class ="col-md-4 offset-md-4">
+        <div class="card auth-card">
+            <div class="card-body">
+                <h4 align="center"><b>Digite o email cadastrado </b></h4>
                 <br>
-                <button type="submit" class="btn btn-primary btn-block">Enviar</button>
-            </form>
+                <form method ="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
-<div>
     <br>
     <br>
     <br>
-</div>
+</section>
 
 {% endblock content %} 

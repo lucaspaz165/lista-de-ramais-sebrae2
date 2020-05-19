@@ -13,7 +13,6 @@
             {% if unidade.sigla == nome %}
                 <br>
                 <h4 align="center">&nbsp&nbsp<a href="/editar-unidade/{{unidade.id}}"><i class="fas fa-clipboard-list"></i></a>&nbsp&nbsp<a href="/deletar-unidade/{{unidade.id}}" onclick="return confirm('Voce deseja deletar essa UNIDADE ?')"><i class="fas fa-trash"></i></a></h4>
-
             {% endif %}
     {% endif %}
     {% endfor %}

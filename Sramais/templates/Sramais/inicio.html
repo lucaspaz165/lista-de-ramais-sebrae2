@@ -4,25 +4,79 @@
 {% block content %}
 
 <main>
+    <section> <!-- SESSÃO DOS FAVORITOS -->
+        <br>
+        {% if user.is_authenticated %}
+            <button class="btn btn-primary" style="margin-left:18px;" type="button" data-toggle="collapse" data-target="#adm" aria-expanded="false" aria-controls="collapseExample">Favoritos</button>&nbsp
+            <div class="collapse" id="adm">
+            <br>
+            <div class="container">
+                <a href="/adc-favoritos/"><i class="fas fa-user-plus"></i></a>
+                <br>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nome</th>
+                                <th>Ramal</th>
+                                <th>E-mail</th>
+                                <th>Whatsapp</th>
+                                <th>Aniversário</th>
+                                <th>Edição</th>
+                                <th>Função</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for favoritos in favorito %}
+                                    <td><img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img-div"></td>
+                                    <td>{{favoritos.ramais.nome}}</td>
+                                    <td>{{favoritos.ramais.ramal}}</td>
+                                    <td>{{favoritos.ramais.user.email}}</td>
+                                    <td>{{favoritos.ramais.whatsapp}}</td>
+                                    <td> {{favoritos.ramais.dia_de_nascimento}}/{{favoritos.ramais.mes_de_nascimento}}</td>
+                                    <td>{{favoritos.ramais.Função}}</td>
+                                    <td><a href="/deletar-favorito/{{favoritos.id}}" class="confirmar" onclick="return confirm('Voce deseja deletar esse favorito ?')"><i class="fas fa-times"></i></a></td>
+                            </tr>
+                        </tbody>
+                                         {% endfor %}
+                        </table>
+                        </div>
+                    </div>
+                </div>
+        {%endif%}
+    </section>
 
-    {% if messages %}
-     <br>
-        <div class="msg">
-       <ul>
-            {% for message in messages %}
-            <li>{% if message.tags %}{% endif %}<p class="msgp">{{ message }}</p></li>
-            {% endfor %}
-        </ul>
-             </div>
+   <div class="Mensagens">
+        {% if messages %}
+            <br>
+            <br>
+            <div class="msg">
+                <ul>
+                    {% for message in messages %}
+                         <li>{% if message.tags %}{% endif %}<p class="msgp">{{ message }}</p></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
 
-{% endif %}
     <section> <!-- Seção aniversário -->
+        <div class="feliz aniversario">
+        {% for ramal in ramais %}
+            {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month or ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
+                <br>
+                <br>
+                <p class ="parabens" align="center"><b><img src="{% static 'imagens/parabens.jpeg' %}" class="balao"alt="balao-de-aniversario">Feliz aniversário <img src="{% static 'imagens/parabens.jpeg' %}" class="balao1"alt="balao-de-aniversario"></b></p>
+                    {{ "<!--" }}
+                        {%endif%}
+                        {%endfor%}
+                       <span style="display: none;"{{ "-->" }}</span>
+        </div>
         {% for ramal in ramais %}
             {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
-                <br>
-                <br>
                 <div style="overflow-x:auto;">
-                    <p class ="parabens" align="center"><b><img src="{% static 'imagens/parabens.jpeg' %}" class="balao"alt="balao-de-aniversario">Feliz aniversário <img src="{% static 'imagens/parabens.jpeg' %}" class="balao1"alt="balao-de-aniversario"></b></p>
                     <br>
                     <p align="center"><b>Confira quem são os aniversariantes do dia :</b></p>
                     <table align="center" class="tabela-2">
@@ -35,7 +89,7 @@
                                 <th>Aniversario</th>
                                 <th>Função</th>
                             </tr>
-                    </thead>
+                        </thead>
                      {{ "<!--" }}
                         {%endif%}
                         {%endfor%}
@@ -51,14 +105,13 @@
                                     <td>{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</td>
                                     <td>{{ramal.Função}}</td>
                                 </tr>
-                     {%  endif %}
+                            {%  endif %}
                         {%  endfor %}
-                </tbody>
+                    </tbody>
                  </table>
-                </div>
+             </div>
           {% for ramal in ramais %}
             {%  if ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
-                <br>
                 <br>
                 <div style="overflow-x:auto;">
                     <br>
@@ -73,7 +126,7 @@
                                 <th>Aniversario</th>
                                 <th>Função</th>
                             </tr>
-                    </thead>
+                        </thead>
                         {{ "<!--" }}
                         {%endif%}
                         {%endfor%}
@@ -89,68 +142,70 @@
                                     <td>{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</td>
                                     <td>{{ramal.Função}}</td>
                                 </tr>
-                     {%  endif %}
+                            {%  endif %}
                         {%  endfor %}
                 </tbody>
                  </table>
              <br>
                 </div>
-    <br>
 
     <br>
+    <br>
     </section> <!-- FIM DA SEÇÃO ANIVERSÁRIO -->
+
+
     <h1 align="center"><b>Lista de Ramais Sebrae</b></h1>
     <br>
     <section> <!-- Seção dos Ramais -->
         <div class="container">
             {% for unidades in unidade %}
-            <br>
+                <br>
                 {% if unidades.unidade__sigla == None %}
                      <h2>SEM UNIDADE</h2>
-                        <p>Verifique seu perfil e escolha uma unidade</p>
+                      <p>Verifique seu perfil e escolha uma unidade</p>
                 {% else %}
                     <h2><a href="/unidade/{{unidades.unidade__sigla}}">{{unidades.unidade__sigla}}</a></h2>
                 {% endif%}
-            <div class="table-responsive">
-                <table class="table">
-                <thead>
-                    <tr>
-                        <th>Foto</th>
-                        <th>Nome</th>
-                        <th>Ramal</th>
-                        <th>E-mail</th>
-                        <th>Whatsapp</th>
-                        <th>Aniversário</th>
-                        <th>Função</th>
-                        {% if user.is_superuser %}
-                            <th>Edição</th>
-                        {%endif%}
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    {% for ramal in ramais %}
-                        {% if unidades.unidade__sigla == ramal.unidade.sigla %}
-                            <td><img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img-div"></td>
-                            <td>{{ramal.nome}}</td>
-                            <td>{{ramal.ramal}}</td>
-                            <td>{{ramal.user.email}}</td>
-                            <td>{{ramal.whatsapp}}</td>
-                            <td> {{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</td>
-                            <td>{{ramal.Função}}</td>
-                            {% if user.is_superuser %}
-                                {% for unidade in unidades %}
-                                    {% if forloop.first %}
-                                        {% if user.ramais.unidade == ramal.unidade and user.ramais.unidade != None  %}
-                                             <td><a href = "/editar-perfil/{{ramal.id}}"><i class="fas fa-clipboard-list"></i></a>&nbsp<a href="/delete/{{ramal.user.id}}" class="confirmar" onclick="return confirm('Voce deseja deletar esse ramal ?')"> <i class="fas fa-trash"></i></a></td>
-                                        {% else %}
-                                            <td>Sem permissão</td>
-                                        {% endif %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nome</th>
+                                <th>Ramal</th>
+                                <th>E-mail</th>
+                                <th>Whatsapp</th>
+                                <th>Aniversário</th>
+                                <th>Função</th>
+                                {% if user.is_superuser %}
+                                    <th>Edição</th>
+                                {%endif%}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            {% for ramal in ramais %}
+                                {% if unidades.unidade__sigla == ramal.unidade.sigla %}
+                                    <td><img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img-div"></td>
+                                    <td>{{ramal.nome}}</td>
+                                    <td>{{ramal.ramal}}</td>
+                                    <td>{{ramal.user.email}}</td>
+                                    <td>{{ramal.whatsapp}}</td>
+                                    <td> {{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</td>
+                                    <td>{{ramal.Função}}</td>
+                                    {% if user.is_superuser %}
+                                        {% for unidade in unidades %}
+                                            {% if forloop.first %}
+                                                {% if user.ramais.unidade == ramal.unidade and user.ramais.unidade != None  %}
+                                                     <td><a href = "/editar-perfil/{{ramal.id}}"><i class="fas fa-clipboard-list"></i></a>&nbsp<a href="/delete/{{ramal.user.id}}" class="confirmar" onclick="return confirm('Voce deseja deletar esse ramal ?')"> <i class="fas fa-trash"></i></a></td>
+                                                {% else %}
+                                                    <td>Sem permissão</td>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
                                     {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                    </tr>
-                </tbody>
+                            </tr>
+                        </tbody>
                         {%endif%}
                     {%endfor%}
                 </table>
@@ -158,13 +213,9 @@
                 </div>
             <br>
             <br>
-
          {%endfor%}
-
         </div>
-    </section>
-
-
+    </section> <!-- FIM DE SESSÃO RAMAIS -->
  </main>
 
 <div>

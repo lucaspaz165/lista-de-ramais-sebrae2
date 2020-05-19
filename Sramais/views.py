@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import RamaisForm, UnidadeForm, RegistroForm
-from .models import Ramais, Unidade
+from .forms import RamaisForm, UnidadeForm, RegistroForm, FavoritoForm
+from .models import Ramais, Unidade, Favorito
 from django.contrib import messages
 
 
@@ -17,12 +17,26 @@ def passar_obj_para_base(request): # Passando os valores do models para o templa
     return render(request, 'base.html', context)
 
 
+def include_user_favs(request, favorito=None):
+    if not request.user.is_authenticated:
+        favorito = None
+    if request.user.is_authenticated:
+        favorito = Favorito.objects.filter(user=request.user)
+
+    context = {
+        'favorito': favorito
+    }
+
+    return render(request, 'Srmaias/inicio.html', context)
+
+
 def inicio(request):    # view principal
+    global semana
     hora = datetime.datetime.now()
     dias_do_mes = monthrange(hora.year, hora.month)
     dia_atual = hora.day
-    i=0
-    while i < 7: # aniversariantes da semana
+    i = 0
+    while i < 7:  # aniversariantes da semana
         i = i + 1
         if i == 7:
             semana = dia_atual + i
@@ -35,6 +49,9 @@ def inicio(request):    # view principal
         'unidade__sigla').filter(id__count__gt=0)    # filtrando unidades repetidas
     ramais = Ramais.objects.all()
     unidades = Unidade.objects.all()
+    if request.user.is_authenticated:
+        favorito = Favorito.objects.all().filter(user=request.user)
+        return render(request, 'Sramais/inicio.html', {'ramais': ramais, 'favorito': favorito, 'hora': hora, 'unidade': unidade, 'unidades': unidades,'semana': semana})
     if search:   # PESQUISA DOS RAMAIS
         pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
         if pesquisa.exists():   # REDIRECIONANDO PARA PAGINA BUSCA
@@ -133,12 +150,12 @@ def editar_perfil(request, id):     # EDITANDO O PERFIL DO USUARIO
     else:
         return render(request, 'Sramais/editar-perfil.html', {'form': form, 'ramais_form': ramais_form, 'ramais':ramais})
 
+
 @permission_required('is_superuser')
 def delete(request, id):    # DELETANDO USUARIO
     user = get_object_or_404(User, pk=id)
     user.delete()
     messages.info(request, 'Usuário deletado com sucesso.')
-
     return redirect("Sramais-inicio")
 
 
@@ -294,7 +311,6 @@ def criar_perfil(request):
             messages.info(request, 'Usuário Registrado com sucesso.')
             return redirect('/')
     else:
-        user_form = RegistroForm()
         form = RamaisForm()
     if search:  # PESQUISA DOS RAMAIS
         ramais = Ramais.objects.all()
@@ -304,3 +320,24 @@ def criar_perfil(request):
         else:
             return render(request, 'Sramais/invalido.html')
     return render(request, 'Sramais/criar-perfil.html', {'form': form})
+
+
+def adicionar_favoritos(request):
+    if request.method == 'POST':
+        form = FavoritoForm(request.POST, request.FILES)
+        if form.is_valid():
+            favoritos = form.save(commit=False)
+            favoritos.user = request.user
+            favoritos.save()
+            messages.info(request, 'Favorito adicionado com sucesso')
+            return redirect('/')
+    else:
+        form = FavoritoForm()
+    return render(request, 'Sramais/adicionar-favoritos.html', {'form': form})
+
+
+def deletar_favorito(request, id):
+    favorito = get_object_or_404(Favorito, pk=id)
+    favorito.delete()
+    messages.info(request, 'Favorito deletado com sucesso')
+    return redirect('/')

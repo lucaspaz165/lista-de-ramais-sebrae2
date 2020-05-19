@@ -4,31 +4,29 @@
 {% block title %}Cadastro de Unidade{% endblock %}
 
 {% block content %}
-<div>
+<section>
     <br>
     <br>
     <br>
-</div>
-
-<div class="col-md-6 offset-md-3">
-    <div class="card auth-card">
-        <div class="card-body">
-        <br>
-            <h2 align="center"><b>Cadastro Unidade</b></h2>
-            <form  method = "POST" enctype="multipart/form-data">
-                {% csrf_token %}
+    <div class="col-md-6 offset-md-3">
+        <div class="card auth-card">
+            <div class="card-body">
                 <br>
-                {{form|crispy}}
-                <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
-
-            </form>
+                <h2 align="center"><b>Cadastro Unidade</b></h2>
+                <form  method = "POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <br>
+                    {{form|crispy}}
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div>
-<br>
-<br>
-<br>
-<br>
-</div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</section>
 {% endblock %}
