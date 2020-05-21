@@ -51,6 +51,13 @@ def inicio(request):    # view principal
     unidades = Unidade.objects.all()
     if request.user.is_authenticated:
         favorito = Favorito.objects.all().filter(user=request.user)
+        if search:  # PESQUISA DOS RAMAIS
+            pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
+            if pesquisa.exists():  # REDIRECIONANDO PARA PAGINA BUSCA
+                return render(request, 'Sramais/busca.html',
+                              {'pesquisa': pesquisa, 'ramais': ramais, 'unidades': unidades})
+            else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
+                return render(request, 'Sramais/invalido.html')
         return render(request, 'Sramais/inicio.html', {'ramais': ramais, 'favorito': favorito, 'hora': hora, 'unidade': unidade, 'unidades': unidades,'semana': semana})
     if search:   # PESQUISA DOS RAMAIS
         pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)

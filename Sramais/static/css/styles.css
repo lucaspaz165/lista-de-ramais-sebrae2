@@ -15,6 +15,10 @@ body{
 .fas.fa-search { /*ICONE DE PESQUISA*/
             color : #7D7C78;
         }
+.fas fa-user-plus{
+    height: 55px;
+
+}
 
 #menu{ /* MENU */
     position: relative;
@@ -39,7 +43,7 @@ header{ /* CABEÇALHO */
 
 .logo { /* LOGOTIPO */
     float:left;
-    height: 68px;
+    height: 55px;
     margin-left:10px;
 }
 
@@ -237,4 +241,19 @@ li {
 	word-spacing: 10px;
 	width: 48%;
 	margin-left:  10px;
+}
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  border-radius: 30px;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  color: #aaa;
+
 }
