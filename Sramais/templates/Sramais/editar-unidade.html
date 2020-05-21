@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load bootstrap%}
 {% load static %}
 {% load staticfiles %}
 {% block title %}Editar Unidade{% endblock %}
@@ -14,7 +14,7 @@
                 <h2 align="center"><b>Editar unidade</b></h2>
                 <form method="POST"  enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form|crispy}}
+                    {{form|bootstrap}}
                     <br>
                     <br>
                     <button type="submit" class="btn btn-primary btn-block">Editar</button>

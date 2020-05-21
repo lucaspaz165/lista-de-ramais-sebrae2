@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
+{% load bootstrap%}
 {% block title %}Cadastro de Unidade{% endblock %}
 
 {% block content %}
@@ -16,7 +16,7 @@
                 <form  method = "POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <br>
-                    {{form|crispy}}
+                    {{form|bootstrap}}
                     <br>
                     <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
                 </form>

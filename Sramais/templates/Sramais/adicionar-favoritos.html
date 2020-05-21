@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load bootstrap%}
 {% load static %}
 {% load staticfiles %}
 {% block title %}Adicionar Favorito{% endblock %}
@@ -18,7 +18,7 @@
                     {% csrf_token %}
                     <p>Selecione o ramal que você deseja adicionar no seus favoritos :</p>
                     <br>
-                    {{form|crispy}}
+                    {{form|bootstrap}}
                     <br>
 
                     <button type="submit" class="btn btn-primary btn-block">Adicionar Favorito</button>

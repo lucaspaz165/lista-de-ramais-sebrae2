@@ -11,8 +11,8 @@
             <div class="collapse" id="adm">
             <br>
             <div class="container">
-                <br>
                 <a href="/adc-favoritos/"><i class="fas fa-user-plus"></i></a>
+                <br>
                 <br>
                 <div class="table-responsive">
                     <table class="table">
@@ -68,7 +68,6 @@
         {% for ramal in ramais %}
             {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month or ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
                 <br>
-                <br>
                 <p class ="parabens" align="center"><b><img src="{% static 'imagens/parabens.jpeg' %}" class="balao"alt="balao-de-aniversario">Feliz aniversário <img src="{% static 'imagens/parabens.jpeg' %}" class="balao1"alt="balao-de-aniversario"></b></p>
                     {{ "<!--" }}
                         {%endif%}
@@ -115,7 +114,6 @@
             {%  if ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
                 <br>
                 <div style="overflow-x:auto;">
-                    <br>
                     <p align="center"><b>Confira quem são os aniversariantes da semana :</b></p>
                     <table align="center" class="tabela-2">
                         <thead>
@@ -212,7 +210,6 @@
                 </table>
 
                 </div>
-            <br>
             <br>
          {%endfor%}
         </div>
