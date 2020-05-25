@@ -11,7 +11,7 @@
             <div class="collapse" id="adm">
             <br>
             <div class="container">
-                <h4><a href="/adc-favoritos/"><i class="fas fa-user-plus"></i></a></h4>
+                <h5><a href="/adc-favoritos/"><i class="fas fa-user-plus"></i></a></h5>
 
                 <div class="table-responsive">
                     <table class="table">
@@ -67,6 +67,7 @@
         <div class="feliz aniversario">
         {% for ramal in ramais %}
             {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month or ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
+                <hr>
                 <br>
                 <p class ="parabens" align="center"><b><img src="{% static 'imagens/parabens.jpeg' %}" class="balao"alt="balao-de-aniversario">Feliz aniversário <img src="{% static 'imagens/parabens.jpeg' %}" class="balao1"alt="balao-de-aniversario"></b></p>
                     {{ "<!--" }}
@@ -151,12 +152,10 @@
                  </table>
              <br>
                 </div>
-
-    <br>
-    <br>
     </section> <!-- FIM DA SEÇÃO ANIVERSÁRIO -->
-
-
+    <br>
+    <hr>
+    <br>
     <h1 align="center"><b>Lista de Ramais Sebrae</b></h1>
     <br>
     <section> <!-- Seção dos Ramais -->
@@ -164,10 +163,10 @@
             {% for unidades in unidade %}
                 <br>
                 {% if unidades.unidade__sigla == None %}
-                     <h2>SEM UNIDADE</h2>
+                     <h3>SEM UNIDADE</h3>
                       <p>Verifique seu perfil e escolha uma unidade</p>
                 {% else %}
-                    <h2><a href="/unidade/{{unidades.unidade__sigla}}">{{unidades.unidade__sigla}}</a></h2>
+                    <h3><a href="/unidade/{{unidades.unidade__sigla}}">{{unidades.unidade__sigla}}</a></h3>
                 {% endif%}
                 <div class="table-responsive">
                     <table class="table">

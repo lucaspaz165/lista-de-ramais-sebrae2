@@ -43,7 +43,7 @@ header{ /* CABEÇALHO */
 
 .logo { /* LOGOTIPO */
     float:left;
-    height: 55px;
+    height: 70px;
     margin-left:10px;
 }
 
@@ -58,7 +58,7 @@ header{ /* CABEÇALHO */
 li a:hover{ /* passando o mouse no menu */
     background-color: #007CC7;
     text-decoration: none;
-    padding:10px;
+    padding:7px;
     color: white;
     font-size:18px;
 
@@ -230,9 +230,7 @@ li {
     margin:5px;
     color:black;
 }
-.nav-footer{
-    float:right
-}
+
 .unidade {
     text-align: justify;
 	text-indent: 4px; <!-- primeiro parágro tem um espaço no inicio-->
