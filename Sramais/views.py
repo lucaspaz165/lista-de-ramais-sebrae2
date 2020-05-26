@@ -49,7 +49,7 @@ def inicio(request):  # view principal
     unidade_lista = Ramais.objects.values('unidade__sigla').annotate(Count('id')).order_by(
         'unidade__sigla').filter(id__count__gt=0)  # filtrando unidades repetidas
     ramais = Ramais.objects.all()
-    paginator = Paginator(unidade_lista, 1)
+    paginator = Paginator(unidade_lista, 3)
     page = request.GET.get('page')
     unidade = paginator.get_page(page)
 
