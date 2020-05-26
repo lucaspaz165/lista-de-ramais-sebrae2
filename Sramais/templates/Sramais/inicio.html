@@ -2,7 +2,6 @@
 {% load staticfiles %}
 {% block title %}Ramais Sebrae{% endblock %}
 {% block content %}
-
 <main>
     <section> <!-- SESSÃO DOS FAVORITOS -->
         <br>
@@ -80,81 +79,58 @@
         </div>
         {% for ramal in ramais %}
             {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
-                <div style="overflow-x:auto;">
-                    <br>
-                    <p align="center"><b>Confira quem são os aniversariantes do dia :</b></p>
-                    <table align="center" class="tabela-2">
-                        <thead>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Nome</th>
-                                <th>Unidade</th>
-                                <th>Ramal</th>
-                                <th>Whatsaap</th>
-                                <th>Aniversario</th>
-                                <th>Função</th>
-                            </tr>
-                        </thead>
-                     {{ "<!--" }}
-                        {%endif%}
-                        {%endfor%}
-                       <span style="display: none;"{{ "-->" }}</span>
-                    <tbody>
-                        {% for ramal in ramais %}
-                            {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month%}
-                                <tr>
-                                    <td ><img src="/media/{{ramal.foto}}" alt="foto-de-perfil-aniversario" class ="img-div"></td>
-                                    <td >{{ramal.nome}}</td>
-                                    <td>{{ramal.unidade}}</td>
-                                    <td>{{ramal.ramal}}</td>
-                                    <td>{{ramal.whatsapp}}</td>
-                                    <td>{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</td>
-                                    <td>{{ramal.Função}}</td>
-                                </tr>
-                            {%  endif %}
-                        {%  endfor %}
-                    </tbody>
-                 </table>
-             </div>
+            <br>
+            <p align="center"><b>Confira quem são os aniversariantes do dia :</b></p>
+
+                  <div align="center" >
+                      <div class="col-md-6 ">
+                         <div class="ramais">
+                             <br>
+                             <img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img3-div">
+                            <div align="center">
+                                <h4 align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.nome}}</h4>
+                                <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.user.email}}</p>
+                                <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.whatsapp}}</p>
+                            </div>
+                            <br>
+                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.unidade.nome_completo}}</p>
+                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.Função}}</p>
+                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.ramal}}</p>
+                            <hr>
+                            <p align="left" class="esquerda">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
+                            <p align="center" >{{ramal.unidade}}</p>
+                         </div>
+                      </div>
+                  </div>
+    {%endif%}
+{%endfor%}
+        <br>
           {% for ramal in ramais %}
             {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
-                <br>
-                <div style="overflow-x:auto;">
-                    <p align="center"><b>Confira quem são os aniversariantes da semana :</b></p>
-                    <table align="center" class="tabela-2">
-                        <thead>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Nome</th>
-                                <th>Unidade</th>
-                                <th>Ramal</th>
-                                <th>Whatsaap</th>
-                                <th>Aniversario</th>
-                                <th>Função</th>
-                            </tr>
-                        </thead>
-                        {{ "<!--" }}
-                        {%endif%}
-                        {%endfor%}
-                       <span style="display: none;"{{ "-->" }}</span>
-                    <tbody>
-                        {% for ramal in ramais %}
-                            {% if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
-                                <tr>
-                                    <td ><img src="/media/{{ramal.foto}}" alt="foto-de-perfil-aniversario" class ="img-div"></td>
-                                    <td >{{ramal.nome}}</td>
-                                    <td>{{ramal.unidade}}</td>
-                                    <td>{{ramal.ramal}}</td>
-                                    <td>{{ramal.whatsapp}}</td>
-                                    <td>{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</td>
-                                    <td>{{ramal.Função}}</td>
-                                </tr>
-                            {%  endif %}
-                        {%  endfor %}
-                </tbody>
-                 </table>
-             <br>
-                </div>
+                                <p align="center"><b>Confira quem são os aniversariantes da semana :</b></p>
+
+            <div class="col-md-5 offset-md-4">
+                <div class="ramais">
+                    <br>
+                      <img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img3-div">
+                    <div align="center">
+                        <h4 align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.nome}}</h4>
+                        <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.user.email}}</p>
+                        <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.whatsapp}}</p>
+                    </div>
+                    <br>
+                    <p>&nbsp&nbsp&nbsp&nbsp{{ramal.unidade.nome_completo}}</p>
+                    <p>&nbsp&nbsp&nbsp&nbsp{{ramal.Função}}</p>
+                    <p>&nbsp&nbsp&nbsp&nbsp{{ramal.ramal}}</p>
+                    <hr>
+                    <p class="esquerda">&nbsp&nbsp&nbsp&nbsp{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
+                    <p align="center" >&nbsp&nbsp{{ramal.unidade}}</p>
+
+                 </div>
+
+    </div>
+    {%endif%}
+{%endfor%}
     </section> <!-- FIM DA SEÇÃO ANIVERSÁRIO -->
 
     <hr>
@@ -219,19 +195,20 @@
             <br>
          {%endfor%}
         </div>
-        <div class="pagination">
+        <div align="center">
         <span class="step-links">
-            {% if paginar.has_previous %}
-                <a href="?page={{ paginar.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+            {% if unidade.has_previous %}
+                <a href="?page={{ unidade.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
             {% endif %}
-            {% if paginar.paginator.num_pages %}
+
+            {% if unidade.paginator.num_pages %}
             <span class="current">
-                {{ paginar.number }} de {{ paginar.paginator.num_pages }}
+                {{ unidade.number }} de {{ unidade.paginator.num_pages }}
             </span>
             {% endif %}
 
-            {% if paginar.has_next %}
-                <a href="?page={{ paginar.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+            {% if unidade.has_next %}
+                <a href="?page={{ unidade.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
             {% endif %}
         </span>
     </div>

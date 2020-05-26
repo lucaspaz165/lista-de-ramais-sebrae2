@@ -46,12 +46,12 @@ def inicio(request):  # view principal
                 semana = semana - c
     search = request.GET.get('search')
     hora = datetime.datetime.now
-    unidade = Ramais.objects.values('unidade__sigla').annotate(Count('id')).order_by(
+    unidade_lista = Ramais.objects.values('unidade__sigla').annotate(Count('id')).order_by(
         'unidade__sigla').filter(id__count__gt=0)  # filtrando unidades repetidas
-    ramais = Ramais.objects.all().order_by('-created_at')
-    paginator = Paginator(ramais, 3)
+    ramais = Ramais.objects.all()
+    paginator = Paginator(unidade_lista, 1)
     page = request.GET.get('page')
-    paginar = paginator.get_page(page)
+    unidade = paginator.get_page(page)
 
     unidades = Unidade.objects.all()
     if request.user.is_authenticated:
@@ -65,7 +65,7 @@ def inicio(request):  # view principal
                 return render(request, 'Sramais/invalido.html')
         return render(request, 'Sramais/inicio.html',
                       {'ramais': ramais, 'favorito': favorito, 'hora': hora, 'unidade': unidade, 'unidades': unidades,
-                       'semana': semana, 'paginar':paginar})
+                       'semana': semana})
     if search:  # PESQUISA DOS RAMAIS
         pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
         if pesquisa.exists():  # REDIRECIONANDO PARA PAGINA BUSCA
