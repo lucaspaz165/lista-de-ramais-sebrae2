@@ -99,10 +99,10 @@ a{ /* LINKS*/
     padding: 15px;
 }
 .img-div{
-     border-radius: 50px;
+     border-radius: 10px;
     height: 45px;
     overflow: hidden;
-    width: 45px;
+    width: 65px;
 }
 
 .parabens{
@@ -240,6 +240,7 @@ li {
 	width: 48%;
 	margin-left:  10px;
 }
+
 .has-search .form-control {
   padding-left: 2.375rem;
 }

@@ -12,24 +12,28 @@
             <br>
             <div class="container">
                 <h5><a href="/adc-favoritos/"><i class="fas fa-user-plus"></i></a></h5>
+                  {% for favoritos in favorito %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Nome</th>
+                                        <th>Ramal</th>
+                                        <th>E-mail</th>
+                                        <th>Whatsapp</th>
+                                        <th>Aniversário</th>
+                                        <th>Função</th>
+                                        <th>Edição</th>
 
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Nome</th>
-                                <th>Ramal</th>
-                                <th>E-mail</th>
-                                <th>Whatsapp</th>
-                                <th>Aniversário</th>
-                                <th>Edição</th>
-                                <th>Função</th>
-                            </tr>
-                        </thead>
+                                    </tr>
+                                </thead>
+                           {{ "<!--" }}
+                        {%endfor%}
+                       <span style="display: none;"{{ "-->" }}</span>
                         <tbody>
                             <tr>
-                                {% for favoritos in favorito %}
+                             {% for favoritos in favorito %}
                                     <td><img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img-div"></td>
                                     <td>{{favoritos.ramais.nome}}</td>
                                     <td>{{favoritos.ramais.ramal}}</td>
@@ -46,7 +50,6 @@
                     </div>
                 </div>
         {%endif%}
-        <br>
     </section>
 
    <div class="Mensagens">
@@ -114,7 +117,7 @@
                  </table>
              </div>
           {% for ramal in ramais %}
-            {%  if ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
+            {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
                 <br>
                 <div style="overflow-x:auto;">
                     <p align="center"><b>Confira quem são os aniversariantes da semana :</b></p>
@@ -136,7 +139,7 @@
                        <span style="display: none;"{{ "-->" }}</span>
                     <tbody>
                         {% for ramal in ramais %}
-                            {% if ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
+                            {% if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
                                 <tr>
                                     <td ><img src="/media/{{ramal.foto}}" alt="foto-de-perfil-aniversario" class ="img-div"></td>
                                     <td >{{ramal.nome}}</td>
@@ -153,7 +156,7 @@
              <br>
                 </div>
     </section> <!-- FIM DA SEÇÃO ANIVERSÁRIO -->
-    <br>
+
     <hr>
     <br>
     <h1 align="center"><b>Lista de Ramais Sebrae</b></h1>
@@ -216,6 +219,23 @@
             <br>
          {%endfor%}
         </div>
+        <div class="pagination">
+        <span class="step-links">
+            {% if paginar.has_previous %}
+                <a href="?page={{ paginar.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+            {% endif %}
+            {% if paginar.paginator.num_pages %}
+            <span class="current">
+                {{ paginar.number }} de {{ paginar.paginator.num_pages }}
+            </span>
+            {% endif %}
+
+            {% if paginar.has_next %}
+                <a href="?page={{ paginar.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+            {% endif %}
+        </span>
+    </div>
+</div>
     </section> <!-- FIM DE SESSÃO RAMAIS -->
  </main>
 

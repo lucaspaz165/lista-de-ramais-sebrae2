@@ -13,7 +13,7 @@ class RamaisForm(forms.ModelForm):  # FORMULARIO RAMAIS
         model = Ramais
         exclude = ['user']
         fields = '__all__'
-        widgets = {'whatsapp': forms.TextInput(attrs={'data-mask': "(00) 0000-00000"}),
+        widgets = {'whatsapp': forms.TextInput(attrs={'data-mask': "00 - 0000-00000"}),
                    'admin': forms.HiddenInput()}
 
 

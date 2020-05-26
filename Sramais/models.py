@@ -12,12 +12,10 @@ from django.utils.translation import gettext as _
 from Sistema import settings
 
 
-
 class Unidade(models.Model):
     nome_completo = models.CharField(name='nome_completo', max_length=70, null=True, blank=False, unique=True)
     sigla = models.CharField(max_length=10, null=False, blank=False, unique=True)
     descrição = models.TextField(blank=False, null=False, unique=True)
-
 
     def __str__(self):
         return self.sigla
@@ -41,9 +39,10 @@ class Ramais(models.Model):
     funcao = models.CharField('Função' ,max_length=25, choices=funcoes, null=True, blank=False, name='Função')
     admin = models.BooleanField (max_length = 10, null=True, blank=True )
 
-    def clean(self):
+    def save(self, *args, **kwargs):
         if self.whatsapp is None:
             self.whatsapp = 'Não informado'
+        super(Ramais, self).save(*args, **kwargs)
 
     def __str__(self):
 

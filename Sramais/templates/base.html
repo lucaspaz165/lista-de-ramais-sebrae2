@@ -57,10 +57,14 @@
             </button>
             <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <form method="GET" id="search-form">
-                            <input class="form-control" type="text" id="search" name="search"  placeholder="Busca " value="{{ request.GET.search }}">
-                        </form>
+                   <li class="nav-item" style="margin-bottom: 0px;margin-left: 0px;margin-top: 5px;">
+                       <form method="GET" id="search-form">
+                        <div class="input-group">
+                              <div class="form-group has-search">
+                                <span class="fa fa-search form-control-feedback"></span><input class="form-control" type="text" id="search" name="search"  placeholder="Busca " value="{{ request.GET.search }}">
+                            </div>
+                            </div>
+                       </form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/" style="color:white">Início</a>
@@ -74,30 +78,30 @@
                                 <a class="nav-link" href="/unidade/{{user.ramais.unidade.sigla}}" style="color:white">{{user.ramais.unidade}}</a>
                             </li>
                           {% endif %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown" style="color:white">&nbsp<i class="fas fa-user"></i><b>&nbsp&nbsp{{user}}</b></a>
-                        <ul class="dropdown-menu">
-                            {% for ramal in ramais.all %}
-                                {% if request.user.username == ramal.user.username %}
-                                    <li><a href="/editar-usuario/{{user.id}}"> Editar Usuário </a></li>
-                                    <li><a href="/editar-perfil/{{ramal.id}}"> Editar Perfil</a></li>
-                                {% endif%}
-                            {% endfor %}
-                            {% if request.user.ramais.ramal in request.user.ramais.ramal %}
-                                <li><a href="/criar-perfil/"> Criar Perfil</a></li>
-                            {% endif %}
-                            {% if user.is_superuser%}
-                                <li><a href="/adicionar/">Adicionar um ramal</a><li>
-                                <li><a href="/cadastro/" >Adicionar uma Unidade</a></li>
-                            {% endif %}
-                            <li><a href="/accounts/logout/">Sair</a></li>
-                        </ul>
-                    </li>
-                    {% else %}
-                     <li class="nav-item">
-                        <a class="nav-link" href="/accounts/login/" style="color:white">Entrar</a>
-                    </li>
-                    {% endif %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown" style="color:white">&nbsp<i class="fas fa-user"></i><b>&nbsp&nbsp{{user}}</b></a>
+                            <ul class="dropdown-menu">
+                                {% for ramal in ramais.all %}
+                                    {% if request.user.username == ramal.user.username %}
+                                        <li><a href="/editar-usuario/{{user.id}}"> Editar Usuário </a></li>
+                                        <li><a href="/editar-perfil/{{ramal.id}}"> Editar Perfil</a></li>
+                                    {% endif%}
+                                {% endfor %}
+                                {% if request.user.ramais.ramal in request.user.ramais.ramal %}
+                                    <li><a href="/criar-perfil/"> Criar Perfil</a></li>
+                                {% endif %}
+                                {% if user.is_superuser%}
+                                    <li><a href="/adicionar/">Adicionar um ramal</a><li>
+                                    <li><a href="/cadastro/" >Adicionar uma Unidade</a></li>
+                                {% endif %}
+                                <li><a href="/accounts/logout/">Sair</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                         <li class="nav-item">
+                            <a class="nav-link" href="/accounts/login/" style="color:white">Entrar</a>
+                        </li>
+                        {% endif %}
                   </ul>
               </div>
 
