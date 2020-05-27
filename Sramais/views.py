@@ -49,7 +49,7 @@ def inicio(request):  # view principal
     unidade_lista = Ramais.objects.values('unidade__sigla').annotate(Count('id')).order_by(
         'unidade__sigla').filter(id__count__gt=0)  # filtrando unidades repetidas
     ramais = Ramais.objects.all()
-    paginator = Paginator(unidade_lista, 3)
+    paginator = Paginator(unidade_lista, 2)
     page = request.GET.get('page')
     unidade = paginator.get_page(page)
 
@@ -144,15 +144,14 @@ def editar_perfil(request, id):  # EDITANDO O PERFIL DO USUARIO
             if ramais_form.admin is True and request.user.is_superuser:  # Adicionando ADM
                 user.is_superuser = True
                 user.save()
-                if unidade_antiga != ramais_form.unidade and Unidade.objects.annotate(nramais=Count('ramais')).filter(
-                        nramais__gt=1):  # pra galera não sair trocando de unidade com adm
+                if unidade_antiga != ramais_form.unidade: # pra galera não sair trocando de unidade com adm
                     ramais_form.admin = False
                     ramais_form.save()
                     user.is_superuser = False
                     user.save()
                 messages.info(request, 'Perfil Editado com sucesso')
                 return redirect('/')
-            if ramais_form.admin is False:  # Retirando ADM
+            if ramais_form.admin is False or ramais_form.admin is None:  # Retirando ADM
                 user.is_superuser = False
                 user.save()
                 messages.info(request, 'Perfil Editado com sucesso.')

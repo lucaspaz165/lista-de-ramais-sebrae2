@@ -26,7 +26,6 @@ body{
     float:right;
     top:8px;
 
-
 }
 
 h1{
@@ -99,15 +98,13 @@ a{ /* LINKS*/
     padding: 15px;
 }
 .img-div{
-     border-radius: 10px;
-    height: 45px;
+     border-radius: 30px;
+    height: 55px;
     overflow: hidden;
     width: 65px;
 }
 
-.parabens{
-    font-size:30px;
-}
+
 
 .table-responsive{ /*TABELA DOS RAMAIS*/
     border: 1px solid #ddd;
@@ -208,7 +205,7 @@ footer{
 
 
 .parabens{ /* "TITULO" PARABENS*/
-    font-size:38px;
+    font-size:42px;
 }
 
 .balao1{ /*BALAO DE ANIVERSARIO*/

@@ -80,7 +80,7 @@
         {% for ramal in ramais %}
             {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
             <br>
-            <p align="center"><b>Confira quem são os aniversariantes do dia :</b></p>
+            <p align="center">Confira quem são os aniversariantes do dia :</p>
             {{ "<!--" }}
            {%endif%}
             {%endfor%}
@@ -93,26 +93,29 @@
                              <br>
                              <img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img3-div">
                             <div align="center">
-                                <h4 align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.nome}}</h4>
-                                <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.user.email}}</p>
-                                <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.whatsapp}}</p>
+                                <h5 class="p-ani">{{ramal.nome}}</h5>
+                                <p class="p-ani">{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
+                                <p class="p-ani">{{ramal.whatsapp}}</p>
                             </div>
-                            <br>
-                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.unidade.nome_completo}}</p>
-                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.Função}}</p>
-                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.ramal}}</p>
+                            <p class="p-ani2">{{ramal.unidade.nome_completo}}</p>
+                            <p class="p-ani2">{{ramal.Função}}</p>
+                            <p class="p-ani2">{{ramal.ramal}}</p>
                             <hr style ="border: 1px solid #ddd">
-                            <p align="left" class="esquerda">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
-                            <p align="center" >{{ramal.unidade}}</p>
+                            <p align="left" class="esquerda">{{ramal.unidade}}</p>
+                            <p align="center" style="color:white">{{ramal.user.email}}</p>
                          </div>
                       </div>
                   </div>
+        <br>
+        <br>
     {%endif%}
 {%endfor%}
-        <br>
+
+
           {% for ramal in ramais %}
             {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
-                    <p align="center"><b>Confira quem são os aniversariantes da semana :</b></p>
+                  <br>
+                <p align="center">Confira quem são os aniversariantes da semana :</p>
                {{ "<!--" }}
                {%endif%}
                 {%endfor%}
@@ -125,20 +128,20 @@
                              <br>
                              <img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img3-div">
                             <div align="center">
-                                <h4 align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.nome}}</h4>
-                                <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.user.email}}</p>
-                                <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.whatsapp}}</p>
+                                <h5 class="p-ani">{{ramal.nome}}</h5>
+                                <p class="p-ani">{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
+                                <p class="p-ani">{{ramal.whatsapp}}</p>
                             </div>
-                            <br>
-                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.unidade.nome_completo}}</p>
-                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.Função}}</p>
-                            <p align="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.ramal}}</p>
-                            <hr style="border: 1px solid #ddd">
-                            <p align="left" class="esquerda">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
-                            <p align="center" >{{ramal.unidade}}</p>
+                            <p class="p-ani2">{{ramal.unidade.nome_completo}}</p>
+                            <p class="p-ani2">{{ramal.Função}}</p>
+                            <p class="p-ani2">{{ramal.ramal}}</p>
+                            <hr style ="border: 1px solid #ddd">
+                            <p align="left" class="esquerda">{{ramal.unidade}}</p>
+                            <p align="center" >{{ramal.user.email}}</p>
                          </div>
                       </div>
                   </div>
+        <br>
         <br>
     {%endif%}
 {%endfor%}
@@ -206,6 +209,7 @@
             <br>
          {%endfor%}
         </div>
+        <br>
         <div align="center">
         <span class="step-links">
             {% if unidade.has_previous %}
@@ -228,7 +232,6 @@
  </main>
 
 <div>
-     <br>
      <br>
      <br>
      <br>

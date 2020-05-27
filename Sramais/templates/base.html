@@ -45,22 +45,35 @@
         color: #3c763d;
     }
     .ramais{
-       border: 2px solid #ddd;
+       border: 2px solid #005296;
        border-radius: 20px;
+       background-color:#005296;
 
     }
 
     .img3-div{
-        border-radius: 70px;
-        height: 93px;
+        border-radius: 62px;
+        height: 90px;
         overflow: hidden;
-        width: 103px;
+        width: 97px;
         float:left;
         margin-left:30px;
         top:-10px;
 }
 .esquerda{
     float:left;
+    margin-left:30px;
+    color:white;
+}
+.p-ani{
+    text-align:left;
+    margin-left:170px;
+    color:white;
+}
+.p-ani2{
+    text-align:left;
+    color:white;
+    margin-left:30px;
 }
 
 
@@ -69,7 +82,7 @@
 
 <body>
     <header> <!-- CABEÇALHO -->
-        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #005296;">
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #005296;padding-bottom: 0px;">
             <a href="/"><img src="{% static 'imagens/i.jpeg' %}"  class="logo"  alt="logo-img"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -97,8 +110,8 @@
                                 <a class="nav-link" href="/unidade/{{user.ramais.unidade.sigla}}" style="color:white">{{user.ramais.unidade}}</a>
                             </li>
                           {% endif %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown" style="color:white">&nbsp<i class="fas fa-user"></i><b>&nbsp&nbsp{{user}}</b></a>
+                        <li class="nav-item dropdown" style="margin-bottom: 15px;">
+                            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown" style="color:white;">&nbsp<i class="fas fa-user"></i><b>&nbsp&nbsp{{user}}</b></a>
                             <ul class="dropdown-menu">
                                 {% for ramal in ramais.all %}
                                     {% if request.user.username == ramal.user.username %}
@@ -110,7 +123,7 @@
                                     <li><a href="/criar-perfil/"> Criar Perfil</a></li>
                                 {% endif %}
                                 {% if user.is_superuser%}
-                                    <li><a href="/adicionar/">Adicionar um ramal</a><li>
+                                    <li><a href="/adicionar/">Adicionar um ramal</a></li>
                                     <li><a href="/cadastro/" >Adicionar uma Unidade</a></li>
                                 {% endif %}
                                 <li><a href="/accounts/logout/">Sair</a></li>
