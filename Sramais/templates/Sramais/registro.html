@@ -4,36 +4,207 @@
 {% load staticfiles %}
 {% block title %}Registro{% endblock %}
 {% block content %}
-
 <section>
     <br>
     <br>
     <br>
     <br>
 
-    <div class="col-md-6 offset-md-3">
+    <div class ="col-md-6 offset-md-3">
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+    {% endif %}
+
+
         <div class="card auth-card">
             <div class="card-body">
                 <h2 align="center"><b>Registro</b></h2>
-                <form method="POST" action="." class="" enctype="multipart/form-data">
+                <br>
+                <form method ="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{user_form|bootstrap}}
-                    {{form|bootstrap}}
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary btn-block">Registrar</button>
-                </form>
+                    <div class="form-group">
+
+                        <label class="control-label  " for="id_username">Usuário</label>
+
+                        <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                     </div>
+
+                        <input type="text" name="username" value="{{user.username}}" maxlength="150" autofocus="" class=" form-control" required="" id="id_username" style="height:50px;">
+                    </div>
+        </div>
+
+
+                <div class="form-group">
+
+                    <label class="control-label  " for="id_email">Email</label>
+                <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                         </div>
+                    <input type="text" name="email" maxlength="100" value="{{user.email}}" class=" form-control" required="" id="id_email" style="height:50px;">
+
+
+
+                </div>
+
+                    </div>
+
+
+
+
+            <div class="form-group has-error" >
+
+                    <label class="control-label  " for="id_password1">Senha</label>
+
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+
+                    <input type="password" name="password1" class=" form-control"  required="" id="id_password1" style="height:50px;">
+                                    </div>
+
+
+
+
+                </div>
+                    <div class="form-group " >
+
+                         <label class="control-label  " for="id_password2"> Confirmação de Senha</label>
+
+                                    <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+
+                    <input type="password" name="password2"  class=" form-control" required="" id="id_password2" style="height:50px;">
+                                    </div>
+
+
+
+        <br>
+
+
+
+        </div>
+
+<br>
+
+<div class="form-group">
+
+
+            <label class="control-label  " for="id_ramal">Ramal</label>
+
+    <div class="input-group">
+
+        <div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+            <input type="number" name="ramal" step="1" class=" form-control" required="" id="id_ramal" style="height:50px;">
+
+        </div>
+
+</div>
+
+
+
+<div class="form-group">
+
+            <label class="control-label  " for="id_whatsapp">Whatsapp</label>
+
+        <div class="input-group">
+
+        <div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+
+            <input type="text" name="whatsapp"  data-mask="00 - 0000-00000" maxlength="15" class=" form-control" id="id_whatsapp" style="height:50px;">
+
+        </div>
+
+</div>
+
+
+<br>
+
+<div class="form-group">
+        <span class="input-group-addon" role="right-icon"><span class="glyphicon glyphicon-calendar"></span></span>
+
+            <label class="control-label  " for="id_dia_de_nascimento">Dia de nascimento</label>
+        <div class="input-group-prepend">
+
+ <span class="input-group-text">
+     <i class="fas fa-calendar"></i>
+ </span>
+
+
+            <input type="number" name="dia_de_nascimento"  step="1" class=" form-control" required="" id="id_dia_de_nascimento"style="height:50px;">
+</div>
+        </div>
+<br>
+
+
+
+
+
+    <div class="form-group">
+
+        <label class="control-label  " for="id_mes_de_nascimento">Mês de nascimento</label>
+        <div class="input-group-prepend">
+     <span class="input-group-text">
+         <i class="fas fa-calendar"></i>
+     </span>
+                <input type="number" name="mes_de_nascimento"  step="1" class=" form-control" required="" id="id_mes_de_nascimento" style="height:50px;">
+
             </div>
+
+    </div>
+
+
+
+<br>
+
+{{form|bootstrap}}
+<br>
+
+
+
+
+<br>
+                    <button type="submit" class="btn btn-primary btn-block" style="height:50px;">Registro</button>
+
+
+                </form>
+
+    </div>
         </div>
     </div>
- <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
 </section>
-
-
+<div>
+    </div>
 {% endblock %}
+

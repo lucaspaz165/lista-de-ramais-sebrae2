@@ -39,6 +39,8 @@ class Ramais(models.Model):
     funcao = models.CharField('Função' ,max_length=25, choices=funcoes, null=True, blank=False, name='Função')
     admin = models.BooleanField (max_length = 10, null=True, blank=True )
 
+
+
     def save(self, *args, **kwargs):
         if self.whatsapp is None:
             self.whatsapp = 'Não informado'

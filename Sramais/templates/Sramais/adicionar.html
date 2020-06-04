@@ -15,62 +15,121 @@
             <div class="card-body">
                 <h2 align="center"><b>Adicionar</b></h2>
                 <form method="POST"  enctype="multipart/form-data">
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+    {% endif %}
+                    <br>
+
                     {% csrf_token %}
-                    <form method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="1dArUnS00ArrjmIzqhD1kkCD5yAN7GNSSWrGrMbvA029zoWCW7bGDLG6aEx2C93Z">
+                    <div class="form-group">
 
-            <div class="form-group">
-            <label class="control-label  " for="id_nome">Nome</label>
-                <div class="input-group">
-              <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-              </div>
-            <input type="text" name="nome" maxlength="100" class=" form-control" required="" id="id_nome">
-                                             </div>
+
+            <label class="control-label  " for="id_username">Usuário</label>
+
+            <div class="input-group">
+                         <div class="input-group-prepend">
+                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                         </div>
+
+            <input type="text" name="username"  maxlength="150" autofocus="" class=" form-control" required="" id="id_username" style="height:50px;">
+        </div>
+
+
+
+</div>
+
+
+
+
+        <div class="form-group" hidden >
+
+            <label class="control-label  " for="id_email">Email</label>
+        <div class="form-group input-group " >
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                 </div>
+            <input type="text" name="email" value="email@generico.com" maxlength="100" class=" form-control" required="" id="id_email" style="height:50px;">
+
+
+
+        </div>
+
             </div>
 
+
+
+
+    <div class="form-group has-error" hidden>
+
+            <label class="control-label  " for="id_password1">Senha</label>
+
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                            </div>
+
+            <input type="password" name="password1"  value="padrao1234578" class=" form-control" required="" id="id_password1" style="height:50px;">
+                            </div>
+
+
+
+
+        </div>
+            <div class="form-group " hidden>
+
+                 <label class="control-label  " for="id_password2"> Confirmação de Senha</label>
+
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                            </div>
+
+            <input type="password" name="password2"  value="padrao1234578" class=" form-control" required="" id="id_password2" style="height:50px;">
+                            </div>
+            </div>
+                  <div class="form-group">
+                    {% csrf_token %}
+            <label class="control-label  " for="id_nome">Nome Completo</label>
+
+                        <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                     </div>
+
+
+            <input type="text" name="nome" maxlength="100" class=" form-control" required="" id="id_nome" style="height:50px;">
+
+
+
+</div>
+                      </div>
+
+
+<br>
+
 <div class="form-group">
+
+
             <label class="control-label  " for="id_ramal">Ramal</label>
-     <div class="input-group">
-              <div class="input-group-prepend">
-                  <i class="fas fa-tty"></i>
-              </div>
-            <input type="number" name="ramal" step="1" class=" form-control" required="" id="id_ramal">
-            </div>
 
+    <div class="input-group">
 
-
-
-
-
-<div class="form-group">
-
-
-            <label class="control-label  " for="id_unidade">Unidade</label>
-
-
-        <div class=" ">
-            <select name="unidade" class=" form-control" required="" id="id_unidade">
-  <option value="" selected="">---------</option>
-
-  <option value="2">Teste</option>
-
-  <option value="3">TESTE400</option>
-
-  <option value="4">UTIP</option>
-
-  <option value="5">UGF</option>
-
-  <option value="8">teste8000</option>
-
-  <option value="7">UPPP</option>
-
-  <option value="9">a</option>
-
-</select>
-
-
-
+        <div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+            <input type="number" name="ramal" step="1" class=" form-control" required="" id="id_ramal" style="height:50px;">
 
         </div>
 
@@ -78,110 +137,70 @@
 
 
 
+<br>
+
 
 <div class="form-group">
-
 
             <label class="control-label  " for="id_whatsapp">Whatsapp</label>
 
+        <div class="input-group">
 
-        <div class=" ">
-            <input type="text" name="whatsapp" data-mask="00 - 0000-00000" maxlength="15" class=" form-control" id="id_whatsapp">
+        <div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
 
-
-
+            <input type="text" name="whatsapp"  data-mask="00 - 0000-00000" maxlength="15" class=" form-control" id="id_whatsapp" style="height:50px;">
 
         </div>
 
 </div>
 
 
-
+<br>
 
 <div class="form-group">
-
+        <span class="input-group-addon" role="right-icon"><span class="glyphicon glyphicon-calendar"></span></span>
 
             <label class="control-label  " for="id_dia_de_nascimento">Dia de nascimento</label>
+        <div class="input-group-prepend">
+
+ <span class="input-group-text">
+     <i class="fas fa-calendar"></i>
+ </span>
 
 
-        <div class=" ">
-            <input type="number" name="dia_de_nascimento" step="1" class=" form-control" required="" id="id_dia_de_nascimento">
-
-
-
-
-        </div>
-
+            <input type="number" name="dia_de_nascimento"  step="1" class=" form-control" required="" id="id_dia_de_nascimento"style="height:50px;">
 </div>
-
-
-
-
-<div class="form-group">
-
-
-            <label class="control-label  " for="id_mes_de_nascimento">Mês de nascimento</label>
-
-
-        <div class=" ">
-            <input type="number" name="mes_de_nascimento" step="1" class=" form-control" required="" id="id_mes_de_nascimento">
-
-
-
-
         </div>
-
-</div>
-
-
-
-
-<div class="form-group">
-
-
-            <label class="control-label  " for="id_foto">Foto</label>
-
-
-        <div class=" ">
-            <input type="file" name="foto" accept="image/*" id="id_foto">
+<br>
 
 
 
 
-        </div>
 
-</div>
+    <div class="form-group">
 
+        <label class="control-label  " for="id_mes_de_nascimento">Mês de nascimento</label>
+        <div class="input-group-prepend">
+     <span class="input-group-text">
+         <i class="fas fa-calendar"></i>
+     </span>
+                <input type="number" name="mes_de_nascimento"  step="1" class=" form-control" required="" id="id_mes_de_nascimento" style="height:50px;">
 
+            </div>
 
-
-<div class="form-group">
-
-
-            <label class="control-label  " for="id_Função">Função</label>
-
-
-        <div class=" ">
-            <select name="Função" class=" form-control" required="" id="id_Função">
-  <option value="" selected="">---------</option>
-
-  <option value="Estagiário (a)">Estagiário (a)</option>
-
-  <option value="Funcionário (a)">Funcionário (a)</option>
-
-  <option value="Temporário (a)">Temporário (a)</option>
-
-  <option value="Terceirizado (a)">Terceirizado (a)</option>
-
-</select>
+    </div>
 
 
 
+<br>
+{{form|bootstrap}}
+<br>
 
-        </div>
 
-</div>
 
+                    <br>
 
 
 
@@ -205,6 +224,7 @@
                     <br>
                     <button type="submit" class="btn btn-primary btn-block">Adicionar</button>
                 </form>
+                </form>
             </div>
         </div>
     </div>
@@ -218,4 +238,3 @@
 
 
 {% endblock %}
-

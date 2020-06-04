@@ -78,16 +78,15 @@ def guia(request):  # VIEW DE AJUDA
     return render(request, 'Sramais/guia.html', {'ramais': ramais})
 
 
-@permission_required('is_superuser')
 def adicionar(request):
     ramais = Ramais.objects.all()
+    unidade = Unidade.objects.all()
     if request.method == 'POST':  # Adicionando um usuário
+        user_form = RegistroForm(request.POST)  # formulario do usuario
         form = RamaisForm(request.POST, request.FILES)  # formulario dos ramais
-        if form.is_valid():  # vendo se são validos
+        if user_form.is_valid() and form.is_valid():  # vendo se são validos
+            user = user_form.save()  # salvando
             ramais = form.save(commit=False)
-            nome_usuario = ramais.nome[0] + str(ramais.dia_de_nascimento) + str(ramais.mes_de_nascimento)
-            user = User.objects.create(username=ramais.nome[0], password=123, email="Não Informado")
-            user.set_password("12345")
             ramais.user = user
             ramais.save()  # salvando
             if ramais.admin is True:  # Adicionando ADM
@@ -103,8 +102,16 @@ def adicionar(request):
     else:  # CASO ELE NÃO CONSIGA ADICIONAR, MANTENHA OS FORMULÁRIOS
         user_form = RegistroForm()
         form = RamaisForm()
+    search = request.GET.get('search')
+    if search:  # PESQUISA DOS RAMAIS
+        ramais = Ramais.objects.all()
+        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
+        if pesquisa.exists():  # REDIRECIONANDO PARA PAGINA BUSCA
+            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
+        else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
+            return render(request, 'Sramais/invalido.html')
+    return render(request, 'Sramais/adicionar.html', {'user_form': user_form, 'form': form, 'ramais': ramais,'unidade':unidade})
 
-    return render(request, 'Sramais/adicionar.html', {'user_form': user_form, 'form': form, 'ramais': ramais})
 
 
 @login_required()
@@ -113,6 +120,7 @@ def editar_perfil(request, id):  # EDITANDO O PERFIL DO USUARIO
     unidade_antiga = ramais_form.unidade
     form = RamaisForm(instance=ramais_form)
     search = request.GET.get('search')
+    unidade = Unidade.objects.all()
     ramais = Ramais.objects.all()
     if request.user.ramais.unidade != unidade_antiga:
         return redirect('/')
@@ -138,15 +146,10 @@ def editar_perfil(request, id):  # EDITANDO O PERFIL DO USUARIO
                 messages.info(request, 'Perfil Editado com sucesso.')
                 return redirect('/')
     if search:  # PESQUISA DOS RAMAIS
-        ramais = Ramais.objects.all()
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:
-            return render(request, 'Sramais/invalido.html')
+        return pesquisa(request,search)
     else:
         return render(request, 'Sramais/editar-perfil.html',
-                      {'form': form, 'ramais_form': ramais_form, 'ramais': ramais})
+                      {'form': form, 'ramais_form': ramais_form,'unidade':unidade, 'ramais': ramais})
 
 
 @permission_required('is_superuser')
@@ -189,6 +192,7 @@ def apresentacao(request, nome):  # VIEW SOBRE APRESENTAÇÃO DAS UNIDADES
 
 
 def registro(request):  # VIEW DE REGISTRO PRINCIPAL
+    unidade = Unidade.objects.all()
     if request.method == 'POST':
         user_form = RegistroForm(request.POST)
         form = RamaisForm(request.POST, request.FILES)
@@ -207,7 +211,7 @@ def registro(request):  # VIEW DE REGISTRO PRINCIPAL
     search = request.GET.get('search')
     if search:  # PESQUISA DOS RAMAIS
         return pesquisa(request, search)
-    return render(request, 'Sramais/registro.html', {'user_form': user_form, 'form': form})
+    return render(request, 'Sramais/registro.html', {'user_form': user_form, 'form': form, 'unidade':unidade})
 
 
 @login_required()  # view editar usuario

@@ -192,8 +192,10 @@
                                 <br>
 
             </div>
-     {%endif%}
-                {%endfor%}
+    {{ "<!--" }}
+                           {%endif%}
+                            {%endfor%}
+                            <span style="display: none;"{{ "-->" }}</span>
 
 
 
@@ -303,8 +305,10 @@
                   <span class="sr-only">Próximo</span>
               </a>
 <br>
-           {%endif%}
-        {%endfor%}
+           {{ "<!--" }}
+                           {%endif%}
+                            {%endfor%}
+                            <span style="display: none;"{{ "-->" }}</span>
 
 
         </div>
