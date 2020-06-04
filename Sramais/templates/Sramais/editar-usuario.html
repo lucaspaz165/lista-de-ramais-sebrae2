@@ -11,19 +11,111 @@
     <br>
 
     <div class ="col-md-6 offset-md-3">
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+    {% endif %}
         <div class="card auth-card">
             <div class="card-body">
                 <h2 align="center"><b>Editar Usuário</b></h2>
                 <br>
                 <form method ="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form|bootstrap}}
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary btn-block">Salvar</button>
-                </form>
-            </div>
+                    <div class="form-group">
+
+
+            <label class="control-label  " for="id_username">Usuário</label>
+
+            <div class="input-group">
+                         <div class="input-group-prepend">
+                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                         </div>
+
+            <input type="text" name="username"  maxlength="150" autofocus="" class=" form-control" required="" id="id_username" style="height:50px;">
         </div>
+
+
+
+</div>
+
+
+
+
+        <div class="form-group">
+
+            <label class="control-label  " for="id_email">Email</label>
+        <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                 </div>
+            <input type="text" name="email" maxlength="100" class=" form-control" required="" id="id_email" style="height:50px;">
+
+
+
+        </div>
+
+            </div>
+
+
+
+
+    <div class="form-group has-error">
+
+            <label class="control-label  " for="id_password1">Senha</label>
+
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                            </div>
+
+            <input type="password" name="password1" class=" form-control" required="" id="id_password1" style="height:50px;">
+                            </div>
+
+
+
+
+        </div>
+            <div class="form-group ">
+
+                 <label class="control-label  " for="id_password2"> Confirmação de Senha</label>
+
+                            <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                            </div>
+
+            <input type="password" name="password2" class=" form-control" required="" id="id_password2" style="height:50px;">
+                            </div>
+
+
+
+<br>
+
+
+
+</div>
+<br>
+
+                    <button type="submit" class="btn btn-primary btn-block" style="height:50px;">Entrar </button>
+
+
+                </form>
+
+    </div>
+        </div>
+    </div>
+
+
 
         <br>
         <br>
@@ -32,7 +124,9 @@
         <br>
         <br>
         <br>
-    </div>
+
 </section>
+<div>
+    </div>
 {% endblock %}
 

@@ -16,8 +16,175 @@
                 <h2 align="center"><b>Adicionar</b></h2>
                 <form method="POST"  enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{user_form|bootstrap}}
-                    {{form|bootstrap}}
+                    <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="1dArUnS00ArrjmIzqhD1kkCD5yAN7GNSSWrGrMbvA029zoWCW7bGDLG6aEx2C93Z">
+
+            <div class="form-group">
+            <label class="control-label  " for="id_nome">Nome</label>
+                <div class="input-group">
+              <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+              </div>
+            <input type="text" name="nome" maxlength="100" class=" form-control" required="" id="id_nome">
+                                             </div>
+            </div>
+
+<div class="form-group">
+            <label class="control-label  " for="id_ramal">Ramal</label>
+     <div class="input-group">
+              <div class="input-group-prepend">
+                  <i class="fas fa-tty"></i>
+              </div>
+            <input type="number" name="ramal" step="1" class=" form-control" required="" id="id_ramal">
+            </div>
+
+
+
+
+
+
+<div class="form-group">
+
+
+            <label class="control-label  " for="id_unidade">Unidade</label>
+
+
+        <div class=" ">
+            <select name="unidade" class=" form-control" required="" id="id_unidade">
+  <option value="" selected="">---------</option>
+
+  <option value="2">Teste</option>
+
+  <option value="3">TESTE400</option>
+
+  <option value="4">UTIP</option>
+
+  <option value="5">UGF</option>
+
+  <option value="8">teste8000</option>
+
+  <option value="7">UPPP</option>
+
+  <option value="9">a</option>
+
+</select>
+
+
+
+
+        </div>
+
+</div>
+
+
+
+
+<div class="form-group">
+
+
+            <label class="control-label  " for="id_whatsapp">Whatsapp</label>
+
+
+        <div class=" ">
+            <input type="text" name="whatsapp" data-mask="00 - 0000-00000" maxlength="15" class=" form-control" id="id_whatsapp">
+
+
+
+
+        </div>
+
+</div>
+
+
+
+
+<div class="form-group">
+
+
+            <label class="control-label  " for="id_dia_de_nascimento">Dia de nascimento</label>
+
+
+        <div class=" ">
+            <input type="number" name="dia_de_nascimento" step="1" class=" form-control" required="" id="id_dia_de_nascimento">
+
+
+
+
+        </div>
+
+</div>
+
+
+
+
+<div class="form-group">
+
+
+            <label class="control-label  " for="id_mes_de_nascimento">Mês de nascimento</label>
+
+
+        <div class=" ">
+            <input type="number" name="mes_de_nascimento" step="1" class=" form-control" required="" id="id_mes_de_nascimento">
+
+
+
+
+        </div>
+
+</div>
+
+
+
+
+<div class="form-group">
+
+
+            <label class="control-label  " for="id_foto">Foto</label>
+
+
+        <div class=" ">
+            <input type="file" name="foto" accept="image/*" id="id_foto">
+
+
+
+
+        </div>
+
+</div>
+
+
+
+
+<div class="form-group">
+
+
+            <label class="control-label  " for="id_Função">Função</label>
+
+
+        <div class=" ">
+            <select name="Função" class=" form-control" required="" id="id_Função">
+  <option value="" selected="">---------</option>
+
+  <option value="Estagiário (a)">Estagiário (a)</option>
+
+  <option value="Funcionário (a)">Funcionário (a)</option>
+
+  <option value="Temporário (a)">Temporário (a)</option>
+
+  <option value="Terceirizado (a)">Terceirizado (a)</option>
+
+</select>
+
+
+
+
+        </div>
+
+</div>
+
+
+
+
                     {% if request.user.is_superuser %}
                         <div id="div_id_admin" class="form-group">
                         <label for="id_admin" class="col-form-label ">Admin</label>

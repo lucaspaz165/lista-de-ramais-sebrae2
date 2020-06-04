@@ -1,6 +1,5 @@
 import datetime
 from calendar import monthrange
-
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.db.models import Count
@@ -18,32 +17,42 @@ def passar_obj_para_base(request):  # Passando os valores do models para o templ
     return render(request, 'base.html', context)
 
 
-def include_user_favs(request, favorito=None):
-    if not request.user.is_authenticated:
-        favorito = None
-    if request.user.is_authenticated:
-        favorito = Favorito.objects.filter(user=request.user)
+def pesquisa(request, search):  # Função de pesquisa
+    ramais = Ramais.objects.all()
+    unidades = Unidade.objects.all()
+    pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
 
-    context = {
-        'favorito': favorito
-    }
+    if pesquisa.exists():  # REDIRECIONANDO PARA PAGINA BUSCA
+        return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais, 'unidades': unidades})
 
-    return render(request, 'Srmaias/inicio.html', context)
+    else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
+        return render(request, 'Sramais/invalido.html', {'ramais': ramais})
 
 
 def inicio(request):  # view principal
-    global semana
     hora = datetime.datetime.now()
     dias_do_mes = monthrange(hora.year, hora.month)
-    dia_atual = hora.day
-    i = 0
-    while i < 7:  # aniversariantes da semana
-        i = i + 1
-        if i == 7:
-            semana = dia_atual + i
-            if semana > dias_do_mes[1]:
-                c = semana - 31
-                semana = semana - c
+    ultimo_dia_do_mes = dias_do_mes[1]
+    contador = 0
+    i = dias_do_mes[0]
+    if hora.day == 1 or hora.day > 1:
+        while i <= 6:
+            i += 1
+            contador += 1
+    semana = contador
+    for i in range(0, 4):
+        if hora.day > semana or hora.day > semana + 7:
+            semana = semana + 7
+    global favorito
+    if request.user.is_authenticated:
+        favorito = Favorito.objects.all().filter(user=request.user)
+
+    if not request.user.is_authenticated:
+        favorito = None
+    if semana > ultimo_dia_do_mes:
+        c = semana - ultimo_dia_do_mes
+        semana = semana - c
+
     search = request.GET.get('search')
     hora = datetime.datetime.now
     unidade_lista = Ramais.objects.values('unidade__sigla').annotate(Count('id')).order_by(
@@ -52,41 +61,19 @@ def inicio(request):  # view principal
     paginator = Paginator(unidade_lista, 2)
     page = request.GET.get('page')
     unidade = paginator.get_page(page)
-
     unidades = Unidade.objects.all()
-    if request.user.is_authenticated:
-        favorito = Favorito.objects.all().filter(user=request.user)
-        if search:  # PESQUISA DOS RAMAIS
-            pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-            if pesquisa.exists():  # REDIRECIONANDO PARA PAGINA BUSCA
-                return render(request, 'Sramais/busca.html',
-                              {'pesquisa': pesquisa, 'ramais': ramais, 'unidades': unidades})
-            else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
-                return render(request, 'Sramais/invalido.html')
-        return render(request, 'Sramais/inicio.html',
-                      {'ramais': ramais, 'favorito': favorito, 'hora': hora, 'unidade': unidade, 'unidades': unidades,
-                       'semana': semana})
     if search:  # PESQUISA DOS RAMAIS
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():  # REDIRECIONANDO PARA PAGINA BUSCA
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais, 'unidades': unidades})
-        else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
-            return render(request, 'Sramais/invalido.html')
+        return pesquisa(request, search)
 
     return render(request, 'Sramais/inicio.html',
-                  {'ramais': ramais, 'hora': hora, 'unidade': unidade, 'unidades': unidades, 'semana': semana})
+                  {'ramais': ramais, 'hora': hora, 'unidade': unidade, 'favorito': favorito,'unidades': unidades, 'semana': semana})
 
 
 def guia(request):  # VIEW DE AJUDA
     search = request.GET.get('search')
     ramais = Ramais.objects.all()  # carregando os dados nessa view para carregar as opções de editar usuario e editar perfil
     if search:  # PESQUISA DOS RAMAIS
-        ramais = Ramais.objects.all()
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():  # REDIRECIONANDO PARA PAGINA BUSCA
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
-            return render(request, 'Sramais/invalido.html')
+        return pesquisa(request, search)
 
     return render(request, 'Sramais/guia.html', {'ramais': ramais})
 
@@ -95,11 +82,12 @@ def guia(request):  # VIEW DE AJUDA
 def adicionar(request):
     ramais = Ramais.objects.all()
     if request.method == 'POST':  # Adicionando um usuário
-        user_form = RegistroForm(request.POST)  # formulario do usuario
         form = RamaisForm(request.POST, request.FILES)  # formulario dos ramais
-        if user_form.is_valid() and form.is_valid():  # vendo se são validos
-            user = user_form.save()  # salvando
+        if form.is_valid():  # vendo se são validos
             ramais = form.save(commit=False)
+            nome_usuario = ramais.nome[0] + str(ramais.dia_de_nascimento) + str(ramais.mes_de_nascimento)
+            user = User.objects.create(username=ramais.nome[0], password=123, email="Não Informado")
+            user.set_password("12345")
             ramais.user = user
             ramais.save()  # salvando
             if ramais.admin is True:  # Adicionando ADM
@@ -115,14 +103,7 @@ def adicionar(request):
     else:  # CASO ELE NÃO CONSIGA ADICIONAR, MANTENHA OS FORMULÁRIOS
         user_form = RegistroForm()
         form = RamaisForm()
-    search = request.GET.get('search')
-    if search:  # PESQUISA DOS RAMAIS
-        ramais = Ramais.objects.all()
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():  # REDIRECIONANDO PARA PAGINA BUSCA
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
-            return render(request, 'Sramais/invalido.html')
+
     return render(request, 'Sramais/adicionar.html', {'user_form': user_form, 'form': form, 'ramais': ramais})
 
 
@@ -176,18 +157,6 @@ def delete(request, id):  # DELETANDO USUARIO
     return redirect("Sramais-inicio")
 
 
-def nao_encontrado(request):  # VIEW PRA QUANDO NÃO ACHAMOS UM RAMAL
-    search = request.GET.get('search')
-    ramais = Ramais.objects.all()
-    if search:  # PESQUISA DOS RAMAIS
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:
-            return render(request, 'Sramais/invalido.html')
-    return render(request, 'invalido.html')
-
-
 @permission_required('is_superuser')
 def unidade(request):  # CRIAR UNIDADE
     search = request.GET.get('search')
@@ -202,12 +171,7 @@ def unidade(request):  # CRIAR UNIDADE
     else:
         form = UnidadeForm()
     if search:  # PESQUISA DOS RAMAIS
-        ramais = Ramais.objects.all()
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():  # REDIRENCIONANDO PARA PAGINA BUSCA
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:  # REDIRECIONANDO CASO NÃO ENCONTRE O RAMAL
-            return render(request, 'Sramais/invalido.html')
+        return pesquisa(request, search)
 
     return render(request, 'Sramais/cadastro_unidades.html', {'form': form, 'ramais': ramais})
 
@@ -219,12 +183,7 @@ def apresentacao(request, nome):  # VIEW SOBRE APRESENTAÇÃO DAS UNIDADES
         Count('id')).order_by('unidade__sigla').filter(id__count__gt=0)  # não lembro do porque disso
     search = request.GET.get('search')
     if search:  # PESQUISA DOS RAMAIS
-        ramais = Ramais.objects.all()
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:
-            return render(request, 'Sramais/invalido.html')
+        return pesquisa(request, search)
     return render(request, 'Sramais/unidade.html',
                   {'nome': nome, 'ramais': ramais, 'unidade': unidade, 'unidades': unidades})
 
@@ -247,12 +206,7 @@ def registro(request):  # VIEW DE REGISTRO PRINCIPAL
         form = RamaisForm()
     search = request.GET.get('search')
     if search:  # PESQUISA DOS RAMAIS
-        ramais = Ramais.objects.all()
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:
-            return render(request, 'Sramais/invalido.html')
+        return pesquisa(request, search)
     return render(request, 'Sramais/registro.html', {'user_form': user_form, 'form': form})
 
 
@@ -290,12 +244,7 @@ def editar_unidade(request, id):
     form = UnidadeForm(instance=unidade)
     search = request.GET.get('search')
     if search:  # PESQUISA DOS RAMAIS
-        ramais = Ramais.objects.all()
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:
-            return render(request, 'Sramais/invalido.html')
+        return pesquisa(request, search)
     if request.user.ramais.unidade.sigla != unidade_antiga:
         return redirect('/')
     if request.method == 'POST':
@@ -332,12 +281,7 @@ def criar_perfil(request):
     else:
         form = RamaisForm()
     if search:  # PESQUISA DOS RAMAIS
-        ramais = Ramais.objects.all()
-        pesquisa = Ramais.objects.filter(nome__icontains=search) or Unidade.objects.filter(sigla__icontains=search)
-        if pesquisa.exists():
-            return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
-        else:
-            return render(request, 'Sramais/invalido.html')
+        return pesquisa(request, search)
     return render(request, 'Sramais/criar-perfil.html', {'form': form})
 
 

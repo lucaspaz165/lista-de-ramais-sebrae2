@@ -12,9 +12,7 @@ body{
 .nav-item{
     padding-right:40px;
 }
-.fas.fa-search { /*ICONE DE PESQUISA*/
-            color : #7D7C78;
-        }
+
 .fas fa-user-plus{
     height: 55px;
 
@@ -65,7 +63,7 @@ li a:hover{ /* passando o mouse no menu */
 
 #search{
 
-    width:250px;
+    width:330px;
     height:40px;
     border-radius: 30px;
     font-size:15px;

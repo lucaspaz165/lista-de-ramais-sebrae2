@@ -42,11 +42,17 @@ class Ramais(models.Model):
     def save(self, *args, **kwargs):
         if self.whatsapp is None:
             self.whatsapp = 'Não informado'
+
         super(Ramais, self).save(*args, **kwargs)
 
     def __str__(self):
 
         return f' {self.nome}'
+
+    def sem_foto(self):
+        if not self.foto:
+            self.foto = 'static/imagens/user.png'
+            return self.foto
 
 
 class Favorito(models.Model):

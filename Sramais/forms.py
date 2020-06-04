@@ -31,6 +31,8 @@ class FavoritoForm(forms.ModelForm):
 
 
 class RegistroForm(UserCreationForm):    # FORMULARIO REGISTRO DE USUARIO
+    email = forms.CharField(max_length=100, required=True)
+
     class Meta:
         model = User
         fields = ['username', 'email'

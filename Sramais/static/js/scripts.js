@@ -16,3 +16,6 @@ $('.datepicker').datepicker({
 $(document).on('click', '.confirm-delete', function(){
     return confirm('Voce deseja deletar esse ramal ?');
 })
+$('.carousel').carousel({
+  interval: 1000 * 10
+});

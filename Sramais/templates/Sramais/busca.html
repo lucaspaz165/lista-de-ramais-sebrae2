@@ -1,5 +1,7 @@
 {% extends 'base.html'%}
 {% load static %}
+{% load staticfiles %}
+
 {% block title %}Busca{% endblock %}
 {% block content %}
 <section>
@@ -35,7 +37,11 @@
                             {% for ramal in ramais %}
                                 {% if ramal.unidade != None %}
                                     {% if ramal.unidade.sigla == pesquisas.sigla or ramal.nome == pesquisas.nome %}
-                                        <td><img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img-div"></td>
+                                          {% if not ramal.foto %}
+                                                <td><img src="{% static 'imagens/user.png' %}" class = "img-div"></td>
+                                          {% else %}
+                                                <td><img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img-div"></td>
+                                            {% endif%}
                                         <td>{{ramal.nome}}</td>
                                         <td>{{ramal.ramal}}</td>
                                         <td>{{ramal.unidade}}</td>
