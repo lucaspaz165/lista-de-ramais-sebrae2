@@ -82,12 +82,14 @@ def adicionar(request):
     ramais = Ramais.objects.all()
     unidade = Unidade.objects.all()
     if request.method == 'POST':  # Adicionando um usuário
-        user_form = RegistroForm(request.POST)  # formulario do usuario
         form = RamaisForm(request.POST, request.FILES)  # formulario dos ramais
-        if user_form.is_valid() and form.is_valid():  # vendo se são validos
-            user = user_form.save()  # salvando
+        if form.is_valid():  # vendo se são validos
             ramais = form.save(commit=False)
+            nome_usuario = ''.join(ramais.nome.split())
+            nome_usuario = nome_usuario.lower() + str(ramais.dia_de_nascimento) + str(ramais.mes_de_nascimento)
+            user = User.objects.create_user(username=nome_usuario, password=123, email="Não Informado")
             ramais.user = user
+            user.set_password("12345")
             ramais.save()  # salvando
             if ramais.admin is True:  # Adicionando ADM
                 user.is_superuser = True
@@ -100,8 +102,8 @@ def adicionar(request):
                 user.save()
                 return redirect('/')  # RETORNANDO PAGINA PRINCIPAL
     else:  # CASO ELE NÃO CONSIGA ADICIONAR, MANTENHA OS FORMULÁRIOS
-        user_form = RegistroForm()
         form = RamaisForm()
+        print(form.errors)
     search = request.GET.get('search')
     if search:  # PESQUISA DOS RAMAIS
         ramais = Ramais.objects.all()
@@ -110,7 +112,7 @@ def adicionar(request):
             return render(request, 'Sramais/busca.html', {'pesquisa': pesquisa, 'ramais': ramais})
         else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
             return render(request, 'Sramais/invalido.html')
-    return render(request, 'Sramais/adicionar.html', {'user_form': user_form, 'form': form, 'ramais': ramais,'unidade':unidade})
+    return render(request, 'Sramais/adicionar.html', {'form': form, 'ramais': ramais,'unidade':unidade})
 
 
 

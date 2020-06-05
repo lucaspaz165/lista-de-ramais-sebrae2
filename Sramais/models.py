@@ -27,7 +27,7 @@ funcoes = (('Estagiário (a)', 'Estagiário (a)'), ('Funcionário (a)', 'Funcion
 
 class Ramais(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique= True, blank=False)
-    nome = models.CharField(max_length=100, null=True, blank=False, unique=True)
+    nome = models.CharField(max_length=100, null=True, blank=False)
     ramal = models.DecimalField(max_digits=4, decimal_places=0, blank=False, unique=True)
     unidade = models.ForeignKey('Unidade', on_delete=models.SET_NULL, null=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -9,143 +9,13 @@
     <br>
     <br>
     <div class="col-md-6 offset-md-3">
-
-
-
         <div class="card auth-card">
             <div class="card-body">
                 <h2 align="center"><b>Editar Perfil</b></h2>
-                <form method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="iExRmNaSbiIjd0RQdjPqjiOrIkWGLT9y0QVZRCRprMHMeyIMRnR4bdEn0yIpqcSF">
-
-
-
-<div class="form-group">
-         {% if form.errors %}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger">
-                        <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-    {% endif %}
+                <form method="POST"  enctype="multipart/form-data">
                     {% csrf_token %}
-            <label class="control-label  " for="id_nome">Nome Completo</label>
-
-                        <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                                     </div>
-
-
-            <input type="text" name="nome" value="{{ramais_form.nome}}" maxlength="100" class=" form-control" required="" id="id_nome" style="height:50px;">
-
-
-
-</div>
-
-
-<br>
-
-<div class="form-group">
-
-
-            <label class="control-label  " for="id_ramal">Ramal</label>
-
-    <div class="input-group">
-
-        <div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-		</div>
-            <input type="number" name="ramal" value="{{ramais_form.ramal}}" step="1" class=" form-control" required="" id="id_ramal" style="height:50px;">
-
-        </div>
-
-</div>
-
-
-<br>
-
-
-
-
-
-
-
-<br>
-
-
-<div class="form-group">
-
-            <label class="control-label  " for="id_whatsapp">Whatsapp</label>
-
-        <div class="input-group">
-
-        <div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-		</div>
-
-            <input type="text" name="whatsapp" value="{{ramais_form.whatsapp}}" data-mask="00 - 0000-00000" maxlength="15" class=" form-control" id="id_whatsapp" style="height:50px;">
-
-        </div>
-
-</div>
-
-</div>
-<br>
-
-<div class="form-group">
-        <span class="input-group-addon" role="right-icon"><span class="glyphicon glyphicon-calendar"></span></span>
-
-            <label class="control-label  " for="id_dia_de_nascimento">Dia de nascimento</label>
-        <div class="input-group-prepend">
-
- <span class="input-group-text">
-     <i class="fas fa-calendar"></i>
- </span>
-
-
-            <input type="number" name="dia_de_nascimento" value="{{ramais_form.dia_de_nascimento}}" step="1" class=" form-control" required="" id="id_dia_de_nascimento"style="height:50px;">
-</div>
-        </div>
-<br>
-
-
-
-
-
-    <div class="form-group">
-
-        <label class="control-label  " for="id_mes_de_nascimento">Mês de nascimento</label>
-        <div class="input-group-prepend">
-     <span class="input-group-text">
-         <i class="fas fa-calendar"></i>
-     </span>
-                <input type="number" name="mes_de_nascimento" value="{{ramais_form.mes_de_nascimento}}" step="1" class=" form-control" required="" id="id_mes_de_nascimento" style="height:50px;">
-
-            </div>
-
-    </div>
-
-
-
-<br>
-
-
-{{form|bootstrap}}
-
-
-
-
+                    {{form|bootstrap}}
                     <br>
-
-
                     {% if request.user.is_superuser %}
                         <div id="div_id_admin" class="form-group">
                             <label for="id_admin" class="col-form-label ">Admin</label>
@@ -161,9 +31,8 @@
                                 </select>
                             </div>
                         </div>
-                    <br>
                     {% endif %}
-
+                    <br>
                     <button type="submit" class="btn btn-primary btn-block">Salvar</button>
                 </form>
             </div>

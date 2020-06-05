@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
 
 {% block title %}{{nome}}{% endblock %}
 
@@ -57,12 +56,7 @@
             {% for ramal in ramais %}
                 {% if ramal.unidade.sigla == nome %}
                 <tr>
-                    {% if not ramal.foto %}
-                        <td><img src="{% static 'imagens/user.png' %}" class = "img-div"></td>
-                    {% else %}
-                        <td><img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img-div">
-                    {% endif%}
-
+                <td><img src="/media/{{ramal.foto}}" class = "img-div"  alt ="foto-do-perfil"></td>
                 <td>{{ramal.nome}}</td>
                 <td>{{ramal.ramal}}</td>
                 <td>{{ramal.user.email}}</td>
@@ -77,14 +71,14 @@
                                 {% else %}
                                     <td>Sem permissão</td>
                                 {% endif %}
-                            {% endif %}
-                         {% endfor %}
                     {% endif %}
-
+                {% endfor %}
+                    {% endif %}
               </tr>
             </tbody>
                 {%endif%}
               {%endfor%}
+
           </table>
           </div>
         </div>

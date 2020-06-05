@@ -11,7 +11,8 @@ class RamaisForm(forms.ModelForm):  # FORMULARIO RAMAIS
     
     class Meta:
         model = Ramais
-        fields = ( 'foto','unidade' , 'Função'  )
+        exclude = ['user']
+        fields = '__all__'
         widgets = {'whatsapp': forms.TextInput(attrs={'data-mask': "00 - 0000-00000"}),
                    'admin': forms.HiddenInput()}
 
