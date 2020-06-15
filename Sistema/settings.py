@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Sramais',
     'bootstrapform',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [

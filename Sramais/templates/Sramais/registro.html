@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load bootstrap%}
+{% load crispy_forms_tags %}
 {% load static %}
 {% load staticfiles %}
 {% block title %}Registro{% endblock %}
@@ -17,8 +17,8 @@
                 <h2 align="center"><b>Registro</b></h2>
                 <form method="POST" action="." class="" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{user_form|bootstrap}}
-                    {{form|bootstrap}}
+                    {{user_form|crispy}}
+                    {{form|crispy}}
                     <br>
                     <br>
                     <button type="submit" class="btn btn-primary btn-block">Registrar</button>

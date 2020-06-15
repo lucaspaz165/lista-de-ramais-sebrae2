@@ -19,3 +19,16 @@ $(document).on('click', '.confirm-delete', function(){
 $('.carousel').carousel({
   interval: 1000 * 10
 });
+
+$(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+
+
+function callMouseOver(){
+    document.getElementById("child").style.display = "inline";
+}
+
+function callMouseOut(){
+    document.getElementById("child").style.display = "none";
+}

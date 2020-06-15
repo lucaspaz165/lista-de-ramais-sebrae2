@@ -2,11 +2,8 @@
 {% load staticfiles %}
 {% block title %}Ramais Sebrae{% endblock %}
 {% block content %}
-
-
-
 <main>
-    <section> <!-- SESSÃO DOS FAVORITOS -->
+<section> <!-- SESSÃO DOS FAVORITOS -->
         <br>
         {% if user.is_authenticated %}
             <button class="btn btn-primary" style="margin-left:18px;" type="button" data-toggle="collapse" data-target="#adm" aria-expanded="false" aria-controls="collapseExample">Favoritos</button>&nbsp
@@ -17,7 +14,7 @@
                   {% for favoritos in favorito %}
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead class="thead-dark">
                                     <tr>
                                         <th>Foto</th>
                                         <th>Nome</th>
@@ -53,335 +50,115 @@
                     </div>
                 </div>
             <br>
-        <br>
+
         {%endif%}
     </section>
 
-   <div class="Mensagens">
-        {% if messages %}
-            <br>
-            <br>
-            <div class="msg">
-                <ul>
-                    {% for message in messages %}
-                         <li>{% if message.tags %}{% endif %}<p class="msgp">{{ message }}</p></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<section> <!-- Seção aniversário -->
-    <div class="feliz aniversario">
-        {% for ramal in ramais %}
-            {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month or ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
-                {% if user.is_authenticated %}
-                    <hr>
-               {%endif%}
-                <br>
-                <p class ="parabens" align="center"><b><img src="{% static 'imagens/parabens.jpeg' %}" class="balao"alt="balao-de-aniversario">Feliz aniversário <img src="{% static 'imagens/parabens.jpeg' %}" class="balao1"alt="balao-de-aniversario"></b></p>
-                    {{ "<!--" }}
-                        {%endif%}
-                        {%endfor%}
-                       <span style="display: none;"{{ "-->" }}</span>
-        </div>
-        {% for ramal in ramais %}
-            {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
+     <div class="feliz aniversario">
+            {% for ramal in ramais %}
+                {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month or ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
+                    {% if user.is_authenticated %}
+                        <hr>
+                   {%endif%}
+                    <br>
+                    <p class ="parabens" align="center"><b><img src="{% static 'imagens/parabens.jpeg' %}" class="balao"alt="balao-de-aniversario">Feliz aniversário <img src="{% static 'imagens/parabens.jpeg' %}" class="balao1"alt="balao-de-aniversario"></b></p>
+                        {{ "<!--" }}
+                            {%endif%}
+                            {%endfor%}
+                           <span style="display: none;"{{ "-->" }}</span>
+     </div>
+   {% for ramal in ramais %}
+              {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
+    <div align="center">
                 <br>
                 <p align="center">Confira quem são os aniversariantes do dia :</p>
+                <br>
 
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"  data-interval="10000">
-                  <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <br>
-                            <br>
-
-                            <p style="text-align:center;">Clique nas setas </p>
-                        </div>
-                             {{ "<!--" }}
+    </div>
+        {{ "<!--" }}
                            {%endif%}
                             {%endfor%}
                             <span style="display: none;"{{ "-->" }}</span>
-                {% for ramal in ramais %}
-                    {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
-                        <div class="carousel-item">
-                           <div align="center" >
-                              <div class="col-md-5 ">
-                                 <div class="ramais">
-                                     <br>
-                                    {% if not ramal.foto %}
-                                        <img src="{% static 'imagens/user.png' %}" class = "img3-div">
-                                    {% else %}
-                                        <img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img3-div">
-                                     {% endif%}
-                                    <div align="center">
-                                        <p class="p-ani"><b>Nome : </b>&nbsp&nbsp{{ramal.nome}}</p>
-                                        <p class="p-ani"><b>Data de Nascimento : </b>&nbsp&nbsp{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
-                                        <p class="p-ani"><b>Whatsapp : </b>&nbsp&nbsp{{ramal.whatsapp}}</p>
-                                    </div>
-                                    <p class="p-ani2"><b>Email : </b>&nbsp&nbsp{{ramal.user.email}}</p>
-                                    <p class="p-ani2"><b>Função : </b>&nbsp&nbsp{{ramal.Função}}</p>
-                                    <p class="p-ani2"><b>Ramal : </b>&nbsp&nbsp{{ramal.ramal}}</p>
-                                    <hr style ="border: 1px solid #ddd">
-                                    <p align="left" class="esquerda"><b>{{ramal.unidade}}</b></p>
-                                    <p align="center"><b>{{ramal.unidade.nome_completo}}</b></p>
-                                 </div>
-                              </div>
-                          </div>
-                            <br>
-                  </div>
-                         {%endif%}
-                 {%endfor%}
+<div class="container" >
+    <div style="width: 100%;text-align: center;" >
+        {% for ramal in ramais %}
+            {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
+                <div class="img"  >
+                    {% if not ramal.foto%}
+                        <img src="{% static 'imagens/user.png' %}" width="300" height="200">
+                    {% else %}
+                    <img src="/media/{{ramal.foto}}" alt="foto-de-perfil" width="300" height="200">
+                    {% endif%}
+                    <span class="tooltiptext" >
+                        <div style="overflow-x:auto;">
+                            <p class="p-ani2"><b>Data de Nascimento : </b>&nbsp{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
+                            <p class="p-ani2"><b>Whatsapp : </b>{{ramal.whatsapp}}</p>
+                            <p class="p-ani2"><b>Email : </b>{{ramal.user.email}}</p>
+                            <p class="p-ani2"><b>Função : </b>{{ramal.Função}}</p>
+                            <p class="p-ani2"><b>Ramal : </b>{{ramal.ramal}}</p>
+                            <p class="p-ani2"><b>Unidade : </b>{{ramal.unidade}}</p>
+                        </div>
+                    </span>
 
-                          </div>
-                         {% for ramal in ramais %}
-                                {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month %}
+                  <div class="desc">{{ramal.nome}}</div>
+                </div>
 
-                                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                      <i class="fas fa-arrow-left" style="font-size:30px;" ></i>
-                                      <span class="sr-only">Anterior</span>
-                                  </a>
-                                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                      <i class="fas fa-arrow-right" style="font-size:30px;"></i>
-                                      <span class="sr-only">Próximo</span>
-                                  </a>
-                                     <br>
-                                <br>
-
+         {%endif%}
+            {%endfor%}
+    </div>
+    <br>
+</div>
+    {% for ramal in ramais %}
+        {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
+        <div class="container" >
+                <br>
+                <p align="center">Confira quem são os aniversariantes da semana :</p>
+                <br>
             </div>
+                 {{ "<!--" }}
+                           {%endif%}
+                            {%endfor%}
+                            <span style="display: none;"{{ "-->" }}</span>
+<div class="container">
+    <div style="width: 100%;text-align: center;">
+        {% for ramal in ramais %}
+            {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
+                <div class="img"  >
+                    {% if not ramal.foto%}
+                        <img src="{% static 'imagens/user.png' %}" width="300" height="200">
+                    {% else %}
+                    <img src="/media/{{ramal.foto}}" alt="foto-de-perfil" style=" width:300;height=:100;">
+                    {% endif%}
+                    <span class="tooltiptext" >
+                     <div style="overflow-x:auto;">
+                            <p class="p-ani2"><b>Data de Nascimento : </b>&nbsp{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
+                            <p class="p-ani2"><b>Whatsapp : </b>{{ramal.whatsapp}}</p>
+                            <p class="p-ani2"><b>Email : </b>{{ramal.user.email}}</p>
+                            <p class="p-ani2"><b>Função : </b>{{ramal.Função}}</p>
+                            <p class="p-ani2"><b>Ramal : </b>{{ramal.ramal}}</p>
+                            <p class="p-ani2"><b>Unidade : </b>{{ramal.unidade}}</p>
+                    </div>
+                    </span>
+                  <div class="desc">{{ramal.nome}}</div>
+                </div>
+
+         {%endif%}
+            {%endfor%}
+    </div>
+    <br>
+</div>
+
+
+<br>
+
+    {% for ramal in ramais %}
+        {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month or ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month or user.is_authenticated  %}
+
+    <hr>
     {{ "<!--" }}
                            {%endif%}
                             {%endfor%}
                             <span style="display: none;"{{ "-->" }}</span>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {% for ramal in ramais %}
-           {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
-            <p align="center">Confira quem são os aniversariantes da semana :</p>
-
-            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel"  data-interval="10000">
-              <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <br>
-                        <br>
-                        <p style="text-align:center;">Clique nas setas</p>
-                    </div>
-                  {{ "<!--" }}
-               {%endif%}
-                {%endfor%}
-                 <span style="display: none;"{{ "-->" }}</span>
-                {% for ramal in ramais %}
-                    {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
-                        <div class="carousel-item">
-                           <div align="center" >
-                              <div class="col-md-5 ">
-                                 <div class="ramais">
-                                     <br>
-                                    {% if not ramal.foto%}
-                                         <img src="{% static 'imagens/user.png' %}" class = "img3-div">
-                                     {% else %}
-                                     <img src="/media/{{ramal.foto}}" alt="foto-de-perfil"class = "img3-div">
-                                     {% endif%}
-                                     <div align="center">
-                                        <p class="p-ani"><b>Nome : </b>&nbsp&nbsp{{ramal.nome}}</p>
-                                        <p class="p-ani"><b>Data de Nascimento : </b>&nbsp&nbsp{{ramal.dia_de_nascimento}}/{{ramal.mes_de_nascimento}}</p>
-                                        <p class="p-ani"><b>Whatsapp : </b>&nbsp&nbsp{{ramal.whatsapp}}</p>
-                                    </div>
-                                    <p class="p-ani2"><b>Email : </b>&nbsp&nbsp{{ramal.user.email}}</p>
-                                    <p class="p-ani2"><b>Função : </b>&nbsp&nbsp{{ramal.Função}}</p>
-                                    <p class="p-ani2"><b>Ramal : </b>&nbsp&nbsp{{ramal.ramal}}</p>
-                                    <hr style ="border: 1px solid #ddd">
-                                    <p align="left" class="esquerda"><b>{{ramal.unidade}}</b></p>
-                                    <p align="center"><b>{{ramal.unidade.nome_completo}}</b></p>
-                                 </div>
-                              </div>
-                          </div>
-                        </div>
-                  {%endif%}
-        {%endfor%}
-
-
-            </div>
-              {% for ramal in ramais %}
-                    {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
-              <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
-                  <i class="fas fa-arrow-left" style="font-size:30px;"></i>
-                  <span class="sr-only">Anterior</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
-                  <i class="fas fa-arrow-right" style="font-size:30px;"></i>
-                  <span class="sr-only">Próximo</span>
-              </a>
-<br>
-           {{ "<!--" }}
-                           {%endif%}
-                            {%endfor%}
-                            <span style="display: none;"{{ "-->" }}</span>
-
-
-        </div>
-    </section> <!-- FIM DA SEÇÃO ANIVERSÁRIO -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <hr>
-    <br>
     <h1 align="center"><b>Lista de Ramais Sebrae</b></h1>
     <br>
     <section> <!-- Seção dos Ramais -->
@@ -396,20 +173,20 @@
                 {% endif%}
                 <div class="table-responsive">
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Nome</th>
-                                <th>Ramal</th>
-                                <th>E-mail</th>
-                                <th>Whatsapp</th>
-                                <th>Aniversário</th>
-                                <th>Função</th>
-                                {% if user.is_superuser %}
-                                    <th>Edição</th>
-                                {%endif%}
-                            </tr>
-                        </thead>
+                        <thead class="thead-dark">
+                        <tr>
+                                    <th>Foto</th>
+                                    <th>Nome</th>
+                                    <th>Ramal</th>
+                                    <th>E-mail</th>
+                                    <th>Whatsapp</th>
+                                    <th>Aniversário</th>
+                                    <th>Função</th>
+                                    {% if user.is_superuser %}
+                                        <th>Edição</th>
+                                    {%endif%}
+                                </tr>
+                            </thead>
                         <tbody>
                             <tr>
                             {% for ramal in ramais %}
@@ -447,24 +224,44 @@
          {%endfor%}
         </div>
         <br>
-        <div align="center">
-        <span class="step-links">
+
+
+        <nav aria-label="Page navigation example">
+        <div class="pagination" style="justify-content: center;">
             {% if unidade.has_previous %}
-                <a href="?page={{ unidade.previous_page_number }}"><i class="fas fa-arrow-left" style="margin-right:5px;"></i></a>
+              <li class="page-item" >
+              <a class="page-link"  href="?page=1" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Anterior</span>
+              </a>
+               </li>
+                      <li class="page-item"><a class="page-link" href="?page={{ unidade.previous_page_number }}">Anterior</a></li>
             {% endif %}
+            {% for num in unidade.paginator.page_range %}
+                {% if unidade.number == num %}
+                        <li class="page-item"><a class="page-link"><strong>{{num}}</strong></a></li>
 
-            {% if unidade.paginator.num_pages %}
-            <span class="current">
-                {{ unidade.number }} de {{ unidade.paginator.num_pages }}
-            </span>
-            {% endif %}
-
+                {% elif num > unidade.number|add:'-3' and num < unidade.number|add:'3' %}
+             <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
             {% if unidade.has_next %}
-                <a href="?page={{ unidade.next_page_number }}"><i class="fas fa-arrow-right" style="margin-left:5px;"></i></a>
+                <li class="page-item"><a class="page-link" href="?page={{ unidade.next_page_number }}">Próxima</a></li>
+             <li class="page-item">
+              <a class="page-link" href="?page={{ unidade.paginator.num_pages }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+          </li>
+
             {% endif %}
-        </span>
-    </div>
+        </nav>
+        </div
+    </section>
+
+
 </div>
+
     </section> <!-- FIM DE SESSÃO RAMAIS -->
  </main>
 

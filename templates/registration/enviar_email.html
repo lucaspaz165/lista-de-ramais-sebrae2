@@ -6,17 +6,28 @@
 <section>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
+
     <div class ="col-md-4 offset-md-4">
         <div class="card auth-card">
             <div class="card-body">
-                <h5 align="center">Digite o email cadastrado</h5>
+                 <h4 class="card-title text-center"><b>Digite o email cadastrado</b></h4>
                 <br>
                 <form method ="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form|bootstrap}}
+                   <div class="form-group">
+
+                    <label class="control-label  " for="id_email">Email</label>
+                <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                         </div>
+                    <input type="text" name="email" maxlength="100"  class=" form-control" required="" id="id_email" style="height:50px;">
+
+
+
+                </div>
+
+                    </div>
                     <br>
                     <button type="submit" class="btn btn-primary btn-block">Enviar</button>
                 </form>

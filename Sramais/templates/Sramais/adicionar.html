@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load bootstrap%}
+{% load crispy_forms_tags %}
 {% load static %}
 {% load staticfiles %}
 {% block title %}Adicionar Ramal{% endblock %}
@@ -16,12 +16,13 @@
                 <h2 align="center"><b>Adicionar</b></h2>
                 <form method="POST"  enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form|bootstrap}}
-                    {% if request.user.is_superuser %}
+                    {{form|crispy}}
+
+                        {% if request.user.is_superuser %}
                         <div id="div_id_admin" class="form-group">
                         <label for="id_admin" class="col-form-label ">Admin</label>
                             <div class="">
-                                <select name="admin" class="nullbooleanselect form-control" id="id_admin">
+                                <select name="admin" class="nullbooleanselect form-control" id="id_admin" style="height:50px;">
                                     {% if ramais.user.is_superuser %}
                                         <option value="true">Sim</option>
                                         <option value="false">Não</option>

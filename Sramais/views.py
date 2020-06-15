@@ -58,7 +58,7 @@ def inicio(request):  # view principal
     unidade_lista = Ramais.objects.values('unidade__sigla').annotate(Count('id')).order_by(
         'unidade__sigla').filter(id__count__gt=0)  # filtrando unidades repetidas
     ramais = Ramais.objects.all()
-    paginator = Paginator(unidade_lista, 2)
+    paginator = Paginator(unidade_lista, 6)
     page = request.GET.get('page')
     unidade = paginator.get_page(page)
     unidades = Unidade.objects.all()
@@ -113,7 +113,6 @@ def adicionar(request):
         else:  # REDIRECIONANDO CASO NÃO ACHE O RAMAL
             return render(request, 'Sramais/invalido.html')
     return render(request, 'Sramais/adicionar.html', {'form': form, 'ramais': ramais,'unidade':unidade})
-
 
 
 @login_required()
