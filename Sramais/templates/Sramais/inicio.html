@@ -145,11 +145,11 @@
          {%endif%}
             {%endfor%}
     </div>
-    <br>
+
 </div>
 
 
-<br>
+
 
     {% for ramal in ramais %}
         {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month or ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month or user.is_authenticated  %}

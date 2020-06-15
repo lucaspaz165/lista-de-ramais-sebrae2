@@ -7,28 +7,29 @@
 <div>
     <br>
 </div>
-{% if user.is_superuser %}
-    {% for unidade in unidades %}
-        {% if user.ramais.unidade.sigla == unidade.sigla  %}
-            {% if unidade.sigla == nome %}
-                <br>
-                <h4 align="center">&nbsp&nbsp<a href="/editar-unidade/{{unidade.id}}"><i class="fas fa-clipboard-list"></i></a>&nbsp&nbsp<a href="/deletar-unidade/{{unidade.id}}" onclick="return confirm('Voce deseja deletar essa UNIDADE ?')"><i class="fas fa-trash"></i></a></h4>
-            {% endif %}
-    {% endif %}
-    {% endfor %}
-{% endif %}
+
 {% for unidades in unidade %}
     {% if unidades.unidade__sigla == nome %}
     <div align="center" >
     <br>
     <br>
         <h1><b>{{unidades.unidade__nome_completo}} - {{unidades.unidade__sigla}}</b></h1>
+          {% if user.is_superuser %}
+        {% if user.ramais.unidade.sigla == unidades.unidade__sigla  %}
+            {% if  unidades.unidade__sigla == nome %}
+                <br>
+                <h4 align="center">&nbsp&nbsp<a href="/editar-unidade/{{unidade.id}}"><i class="fas fa-clipboard-list"></i></a>&nbsp&nbsp<a href="/deletar-unidade/{{unidade.id}}" onclick="return confirm('Voce deseja deletar essa UNIDADE ?')"><i class="fas fa-trash"></i></a></h4>
+            {% endif %}
+    {% endif %}
+{% endif %}
+
         <br>
         <br>
         <div class="container">
             <p class="unidade">{{unidades.unidade__descrição}}</p>
         </div>
         </div>
+
 <br>
 
 
@@ -38,8 +39,8 @@
     <br>
           <div class="table-responsive">
           <table class="table">
-            <thead>
-              <tr>
+         <thead class="thead-dark">
+         <tr>
                   <th>Foto</th>
                 <th>Nome</th>
                 <th>Ramal</th>
