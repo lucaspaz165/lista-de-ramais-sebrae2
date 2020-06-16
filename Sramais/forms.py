@@ -112,5 +112,6 @@ class RegistroForm(UserCreationForm):  # FORMULARIO REGISTRO DE USUARIO
         fields = ['username', 'email'
 
                   ]
+
         labels = {'Usuário': 'username', 'Email': 'email'
                   }

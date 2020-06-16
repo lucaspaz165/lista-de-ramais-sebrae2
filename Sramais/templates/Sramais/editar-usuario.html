@@ -27,11 +27,13 @@
                 {% endfor %}
             {% endfor %}
             {% for error in form.non_field_errors %}
+
                 <div class="alert alert-danger">
                     <strong>{{ error|escape }}</strong>
                 </div>
             {% endfor %}
     {% endif %}
+
                 <form method ="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">

@@ -53,7 +53,19 @@
 
         {%endif%}
     </section>
-
+    <div class="Mensagens">
+            {% if messages %}
+                <br>
+                <br>
+                <div class="msg">
+                    <ul>
+                        {% for message in messages %}
+                             <li>{% if message.tags %}{% endif %}<p class="msgp">{{ message }}</p></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
      <div class="feliz aniversario">
             {% for ramal in ramais %}
                 {% if ramal.dia_de_nascimento ==  hora.day and ramal.mes_de_nascimento ==  hora.month or ramal.dia_de_nascimento >= hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month %}
@@ -125,7 +137,7 @@
             {%  if ramal.dia_de_nascimento > hora.day and ramal.dia_de_nascimento <= semana and ramal.mes_de_nascimento ==  hora.month  %}
                 <div class="img"  >
                     {% if not ramal.foto%}
-                        <img src="{% static 'imagens/user.png' %}" width="300" height="200">
+                        <img src="{% static 'imagens/user.png' %}" class="img-35">
                     {% else %}
                     <img src="/media/{{ramal.foto}}" alt="foto-de-perfil" style=" width:300;height=:100;">
                     {% endif%}
